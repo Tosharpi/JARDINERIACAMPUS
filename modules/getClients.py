@@ -38,11 +38,27 @@ def getAllClientPaisRegionCiudad(pais, region=None, ciudad=None):
                 if (val.get('ciudad') == ciudad) or ciudad == None:
                     
                     userInZone=dict({
+                    "codigo_cliente":{val.get('codigo_cliente')},
                     "pais":{val.get('pais')},
                     "ciudad":{val.get('ciudad')},
                     "region":{val.get('region')}
                     })
-                    clientZone.append(userInZone)
-                        
-
+                    clientZone.append(userInZone)                  
     return clientZone
+
+def getNombreContacto(codigo):
+
+    contacClient=[]
+    for val in cli.clientes:
+        if(val.get('codigo_cliente') == codigo):
+           
+           usuarioContacto={
+            "codigo_cliente":{val.get('codigo_cliente')},
+            "nombre_contacto":{val.get('nombre_contacto')},
+            "apellido_contacto":{val.get('apellido_contacto')}
+           }
+           contacClient.append(usuarioContacto)
+    return contacClient
+
+
+
