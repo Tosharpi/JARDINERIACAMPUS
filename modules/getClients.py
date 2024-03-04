@@ -8,6 +8,7 @@ def getAllClientName():
             "nombre_cliente":{val.get('nombre_cliente')}
         })
         clienteName.append(codigoName)
+        
     return clienteName
 
 def getOneClientCodigo(codigo):
@@ -29,11 +30,19 @@ def getAllClientCreditoCiudad(limiteCredit, ciudad):
 def getAllClientPaisRegionCiudad(pais, region=None, ciudad=None):
     clientZone = list()
     for val in cli.clientes:
+        
         if (val.get('pais') == pais):
-
-            if (region != None and val.get('region')):
-                clientZone.append(val)
-            elif (val.get('region') == None):
-                clientZone.append(val)
+            
+            if (val.get('region') == region) or region == None:
+                
+                if (val.get('ciudad') == ciudad) or ciudad == None:
+                    
+                    userInZone=dict({
+                    "pais":{val.get('pais')},
+                    "ciudad":{val.get('ciudad')},
+                    "region":{val.get('region')}
+                    })
+                    clientZone.append(userInZone)
+                        
 
     return clientZone
