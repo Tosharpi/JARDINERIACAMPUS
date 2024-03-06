@@ -1,7 +1,7 @@
 #import modules.getClients as cliente 
 from tabulate import tabulate
 
-import modules.getPedido as ped
+import modules.getClients as cli
 
 
 
@@ -12,4 +12,6 @@ import modules.getPedido as ped
 
 #print(tabulate(cliente.getNombreContacto(1)))
 
-print(tabulate(ped.getCodigoPedido(1)))
+#print(tabulate(ped.getCodigoPedido(1)))
+
+print(tabulate(cli.getNombreContacto(1)))
