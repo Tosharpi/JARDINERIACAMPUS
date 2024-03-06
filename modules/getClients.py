@@ -60,5 +60,15 @@ def getNombreContacto(codigo):
            contacClient.append(usuarioContacto)
     return contacClient
 
-
-
+def getClientesEspañoles(pais):
+    getClientesEspañoles=[]
+    for val in cli.clientes:
+       if(val.get("pais") == "Spain"):
+           getClientesEspañoles.append(
+               {
+                   "codigo_cliente":{val.get("codigo_cliente")},
+                   "nombre_cliente":{val.get("nombre_cliente")},
+                   "pais": {val.get("pais")}
+               }
+           )
+    return getClientesEspañoles
