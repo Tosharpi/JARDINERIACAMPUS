@@ -1,8 +1,8 @@
 #import modules.getClients as cliente 
 from tabulate import tabulate
 
-import modules.getClients as cli
-
+import modules.getClients as cliente
+import modules.getOficina as oficina
 
 
 #print(tabulate(cliente.getNombreContacto(1)))
@@ -14,4 +14,6 @@ import modules.getClients as cli
 
 #print(tabulate(ped.getCodigoPedido(1)))
 
-print(tabulate(cli.getNombreContacto(1)))
+#print(tabulate(cli.getNombreContacto(1)))
+
+print(oficina.getAllCiudadTelefono("España"))
