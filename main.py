@@ -24,4 +24,4 @@ import modules.getPago as pago
 
 #print(tabulate(empleado.getAllNombrePuestoNombreApellidoEmail(), tablefmt="grid"))
 
-print(tabulate(pago.getAllPagPayPal(), tablefmt="grid"))
+print(tabulate(pago.getAllFormasPago(), tablefmt="grid"))

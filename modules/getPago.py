@@ -36,3 +36,16 @@ def getAllPagPayPal():
     AllPagPayPal = sorted(AllPagPayPal, key=lambda x: x["total"], reverse=True)
 
     return AllPagPayPal
+
+def getAllFormasPago():
+    FormasPago = list()
+    for FP in pag.pago:
+        if(FP.get("forma_pago") != None):
+            FormasPago.append({
+                "forma_pago" : (FP.get("forma_pago"))
+            })
+
+    FormasPago = list(set(tuple(item.items()) for item in FormasPago))
+    
+    return FormasPago
+

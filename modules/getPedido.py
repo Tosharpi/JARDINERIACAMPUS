@@ -32,6 +32,7 @@ def getAllPedidosEntregadosAtrasadosDeTiempo():
     for pedidos in ped.pedido:
         if (pedidos.get("estado") == "Entregado" and pedidos.get("fecha_entrega") is None):
             pedidos["fecha_entrega"]= pedidos.get("fecha_esperada")
+            
         if pedidos.get("estado") == "Entregado":
 
             date_1 = "/".join(pedidos.get("fecha_entrega").split("-")[::-1])
@@ -117,8 +118,4 @@ def getAllPedEntEnero():
 
     return AllPedEntEnero
 
-  
-
-#start = datetime.strptime(date_1, "%Y/%m/%d")
-# end = datetime.strptime(date_, "%Y/%m/%d")
 
