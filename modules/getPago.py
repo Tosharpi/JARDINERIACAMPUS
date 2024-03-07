@@ -14,6 +14,5 @@ def getCodClientesPago2008():
             )
 
     codigosclientespago2008 = list(set(tuple(item.items()) for item in codigosclientespago2008))
-    codigosclientespago2008 = [{k: v for k, v in item} for item in codigosclientespago2008]
 
     return codigosclientespago2008

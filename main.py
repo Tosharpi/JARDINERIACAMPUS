@@ -24,4 +24,4 @@ import modules.getPago as pago
 
 #print(tabulate(empleado.getAllNombrePuestoNombreApellidoEmail(), tablefmt="grid"))
 
-print(tabulate(pago.getCodClientesPago2008(), tablefmt="grid"))
+print(tabulate(pedido.getAllPedRechazadosEn2008(), tablefmt="grid"))
