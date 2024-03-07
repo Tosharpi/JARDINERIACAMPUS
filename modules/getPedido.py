@@ -103,17 +103,21 @@ def getAllPedEntEnero():
 
         if val.get("estado") == "Entregado":
 
-            if val.get("fecha_esperada")[5:7] == "01" or val.get("fecha_entrega")[5:7] == "01" :
+            date_1 = "/".join(val.get("fecha_entrega").split("-")[::-1])
+            start = datetime.strptime(date_1, "%d/%m/%Y")
+        
+             
+            if start.month == 1  :
                 AllPedEntEnero.append({
                     "codigo_pedido": val.get("codigo_pedido"),
                     "codigo_cliente": val.get("codigo_cliente"),
                     "fecha_esperada": val.get("fecha_esperada"),
-                    "estado": val.get("estado"),
                     "fecha_de_entrega": val.get("fecha_entrega")
                 })
 
     return AllPedEntEnero
 
+  
 
 #start = datetime.strptime(date_1, "%Y/%m/%d")
 # end = datetime.strptime(date_, "%Y/%m/%d")
