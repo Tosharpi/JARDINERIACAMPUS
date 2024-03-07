@@ -97,9 +97,14 @@ def getAllPedRechazadosEn2008():
 def getAllPedEntEnero():
     AllPedEntEnero = []
     for val in ped.pedido:
+
+        if (val.get("estado") == "Entregado" and val.get("fecha_entrega") is None):
+            val["fecha_entrega"]= val.get("fecha_esperada")
+
         if val.get("estado") == "Entregado":
-            if val.get("fecha_pedido")[0:4] == "2008" and val.get("fecha_esperada")[0:4] == "2008":
-                pedidosRechazadosEn2008.append({
+
+            if val.get("fecha_esperada")[5:7] == "01" or val.get("fecha_entrega")[5:7] == "01" :
+                AllPedEntEnero.append({
                     "codigo_pedido": val.get("codigo_pedido"),
                     "codigo_cliente": val.get("codigo_cliente"),
                     "fecha_esperada": val.get("fecha_esperada"),
@@ -107,7 +112,7 @@ def getAllPedEntEnero():
                     "fecha_de_entrega": val.get("fecha_entrega")
                 })
 
-    return pedidosRechazadosEn2008
+    return AllPedEntEnero
 
 
 #start = datetime.strptime(date_1, "%Y/%m/%d")
