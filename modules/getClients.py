@@ -1,5 +1,5 @@
 import storage.clientes as cli 
-import tabulate
+from tabulate import tabulate
 
 def getAllClientName():
     clienteName =list()
@@ -74,7 +74,7 @@ def getClientesEspañoles(pais):
            )
     return getClientesEspañoles
 
-def menuCli():
+def menu():
     print(""" 
 
     _______                                             __                                      __                  __                             ______   __  __                        __                         
@@ -98,7 +98,12 @@ def menuCli():
           6. Obtener clientes españoles
 """)
 
-opcionCli = int(input("Seleccione una de las opciones: "))
+    opcion = int(input("Seleccione una de las opciones: "))
 
-if(opcionCli == 1):
-    print(tabulate(getAllClientName(), tablefmt="round_grid"))
+    if(opcion == 1):
+
+        print(tabulate(getAllClientName(), headers="keys", tablefmt="github"))
+    elif(opcion == 2):
+        codigo = int(input('Ingrese el codigo del cliente: '))
+        print(tabulate(getOneClientCodigo(codigo), headers="keys", tablefmt="github"))
+    
