@@ -1,7 +1,7 @@
 import storage.empleados as em 
 
 # cevuelve un listado con el nombre, apellidos y email
-# de los empleados  cuyo jefe tiene un codigo de jefe igual a 7 
+# de los empleados  segun el codigo del jefe
 
 def getAllNombreApellidoEmailJefe(codigo):
     nombreApellidoEmail = []
@@ -51,3 +51,23 @@ def getNoRepresentanteDeVentas():
             )
     return NoRepresentanteDeVentas
 
+def menu():
+    print(""" 
+
+       __       __                                      ________                          __                            __                     
+      |  \     /  \                                    |        \                        |  \                          |  \                    
+      | $$\   /  $$  ______   _______   __    __       | $$$$$$$$ ______ ____    ______  | $$  ______    ______    ____| $$  ______    _______ 
+      | $$$\ /  $$$ /      \ |       \ |  \  |  \      | $$__    |      \    \  /      \ | $$ /      \  |      \  /      $$ /      \  /       \
+      | $$$$\  $$$$|  $$$$$$\| $$$$$$$\| $$  | $$      | $$  \   | $$$$$$\$$$$\|  $$$$$$\| $$|  $$$$$$\  \$$$$$$\|  $$$$$$$|  $$$$$$\|  $$$$$$$
+      | $$\$$ $$ $$| $$    $$| $$  | $$| $$  | $$      | $$$$$   | $$ | $$ | $$| $$  | $$| $$| $$    $$ /      $$| $$  | $$| $$  | $$ \$$    \ 
+      | $$ \$$$| $$| $$$$$$$$| $$  | $$| $$__/ $$      | $$_____ | $$ | $$ | $$| $$__/ $$| $$| $$$$$$$$|  $$$$$$$| $$__| $$| $$__/ $$ _\$$$$$$\
+      | $$  \$ | $$ \$$     \| $$  | $$ \$$    $$      | $$     \| $$ | $$ | $$| $$    $$| $$ \$$     \ \$$    $$ \$$    $$ \$$    $$|       $$
+       \$$      \$$  \$$$$$$$ \$$   \$$  \$$$$$$        \$$$$$$$$ \$$  \$$  \$$| $$$$$$$  \$$  \$$$$$$$  \$$$$$$$  \$$$$$$$  \$$$$$$  \$$$$$$$ 
+                                                                               | $$                                                            
+                                                                               | $$                                                            
+                                                                                \$$                                                            
+                                                                                                                   
+          1. Ver los empleados de cada jefe (codigo jefe)
+          2. 
+
+""")

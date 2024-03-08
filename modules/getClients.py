@@ -1,4 +1,5 @@
 import storage.clientes as cli 
+import tabulate
 
 def getAllClientName():
     clienteName =list()
@@ -72,3 +73,32 @@ def getClientesEspañoles(pais):
                }
            )
     return getClientesEspañoles
+
+def menuCli():
+    print(""" 
+
+    _______                                             __                                      __                  __                             ______   __  __                        __                         
+    |       \                                           |  \                                    |  \                |  \                           /      \ |  \|  \                      |  \                        
+    | $$$$$$$\  ______    ______    ______    ______   _| $$_     ______    _______         ____| $$  ______        | $$  ______    _______       |  $$$$$$\| $$ \$$  ______   _______   _| $$_     ______    _______ 
+    | $$__| $$ /      \  /      \  /      \  /      \ |   $$ \   /      \  /       \       /      $$ /      \       | $$ /      \  /       \      | $$   \$$| $$|  \ /      \ |       \ |   $$ \   /      \  /       $
+    | $$    $$|  $$$$$$\|  $$$$$$\|  $$$$$$\|  $$$$$$\ \$$$$$$  |  $$$$$$\|  $$$$$$$      |  $$$$$$$|  $$$$$$\      | $$|  $$$$$$\|  $$$$$$$      | $$      | $$| $$|  $$$$$$\| $$$$$$$\ \$$$$$$  |  $$$$$$\|  $$$$$$$
+    | $$$$$$$\| $$    $$| $$  | $$| $$  | $$| $$   \$$  | $$ __ | $$    $$ \$$    \       | $$  | $$| $$    $$      | $$| $$  | $$ \$$    \       | $$   __ | $$| $$| $$    $$| $$  | $$  | $$ __ | $$    $$ \$$    \ 
+    | $$  | $$| $$$$$$$$| $$__/ $$| $$__/ $$| $$        | $$|  \| $$$$$$$$ _\$$$$$$\      | $$__| $$| $$$$$$$$      | $$| $$__/ $$ _\$$$$$$\      | $$__/  \| $$| $$| $$$$$$$$| $$  | $$  | $$|  \| $$$$$$$$ _\$$$$$$$
+    | $$  | $$ \$$     \| $$    $$ \$$    $$| $$         \$$  $$ \$$     \|       $$       \$$    $$ \$$     \      | $$ \$$    $$|       $$       \$$    $$| $$| $$ \$$     \| $$  | $$   \$$  $$ \$$     \|       $$
+    \$$   \$$  \$$$$$$$| $$$$$$$   \$$$$$$  \$$          \$$$$   \$$$$$$$ \$$$$$$$         \$$$$$$$  \$$$$$$$       \$$  \$$$$$$  \$$$$$$$         \$$$$$$  \$$ \$$  \$$$$$$$ \$$   \$$    \$$$$   \$$$$$$$ \$$$$$$$ 
+                        | $$                                                                                                                                                                                          
+                        | $$                                                                                                                                                                                          
+                        \$$                                                                                                                                                                                          
+
+          1. Obtener todos los clientes (codigo y nombre)
+          2. Obtener un cliente por el codigo (codigo y nombre)
+          3. Obtener toda la informacion de un cliente segun su limite de credito y ciudad que pertenece (ejemplo: 3000.0, San Francisco)
+          4. Obtener todos los clientes de un pais, una region y una ciudad (pais, region, ciudad)
+          5. Obtener el nombre de contacto de un cliente (codigo del cliente)
+          6. Obtener clientes españoles
+""")
+
+opcionCli = int(input("Seleccione una de las opciones: "))
+
+if(opcionCli == 1):
+    print(tabulate(getAllClientName(), tablefmt="round_grid"))

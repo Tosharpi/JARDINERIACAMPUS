@@ -12,7 +12,7 @@ def getAllCodigoCiudad():
     return codigoCiudad
 
 #devuelve un listado con la ciudad y el telefono
-#de las oficinas de españa
+#de las oficinas
 
 def getAllCiudadTelefono(pais):
     ciudadTelefono = []
@@ -27,5 +27,21 @@ def getAllCiudadTelefono(pais):
             })
     return ciudadTelefono
 
+def menu():
+    print(""" 
 
+ __       __                                       ______    ______   __            __                               
+|  \     /  \                                     /      \  /      \ |  \          |  \                              
+| $$\   /  $$  ______   _______   __    __       |  $$$$$$\|  $$$$$$\ \$$  _______  \$$ _______    ______    _______ 
+| $$$\ /  $$$ /      \ |       \ |  \  |  \      | $$  | $$| $$_  \$$|  \ /       \|  \|       \  |      \  /       $
+| $$$$\  $$$$|  $$$$$$\| $$$$$$$\| $$  | $$      | $$  | $$| $$ \    | $$|  $$$$$$$| $$| $$$$$$$\  \$$$$$$\|  $$$$$$$
+| $$\$$ $$ $$| $$    $$| $$  | $$| $$  | $$      | $$  | $$| $$$$    | $$| $$      | $$| $$  | $$ /      $$ \$$    \ 
+| $$ \$$$| $$| $$$$$$$$| $$  | $$| $$__/ $$      | $$__/ $$| $$      | $$| $$_____ | $$| $$  | $$|  $$$$$$$ _\$$$$$$$
+| $$  \$ | $$ \$$     \| $$  | $$ \$$    $$       \$$    $$| $$      | $$ \$$     \| $$| $$  | $$ \$$    $$|       $$
+ \$$      \$$  \$$$$$$$ \$$   \$$  \$$$$$$         \$$$$$$  \$$       \$$  \$$$$$$$ \$$ \$$   \$$  \$$$$$$$ \$$$$$$$ 
+                                                                                                                     
+          1. La ciudad de una oficina (codigo oficina y ciudad)
+          2. La ciudad y el telefono de cada oficina segun el pais (pais)
+
+""")
 
