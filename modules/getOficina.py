@@ -1,4 +1,5 @@
 import storage.oficina as of 
+from tabulate import tabulate
 #Devuelve un listado
 #oficina y la ciudad
 
@@ -40,8 +41,14 @@ def menu():
 | $$  \$ | $$ \$$     \| $$  | $$ \$$    $$       \$$    $$| $$      | $$ \$$     \| $$| $$  | $$ \$$    $$|       $$
  \$$      \$$  \$$$$$$$ \$$   \$$  \$$$$$$         \$$$$$$  \$$       \$$  \$$$$$$$ \$$ \$$   \$$  \$$$$$$$ \$$$$$$$ 
                                                                                                                      
-          1. La ciudad de una oficina (codigo oficina y ciudad)
+          1. La oficina de cada ciudad
           2. La ciudad y el telefono de cada oficina segun el pais (pais)
 
-""")
+    """)
+    opcion = int(input('Seleccione la opcion: '))
+    if (opcion == 1):
+        print(tabulate(getAllCodigoCiudad(), headers="keys", tablefmt="github"))
+    if (opcion == 2):
+        pais = input('Ingrese el país: ')
+        print(tabulate(getAllCiudadTelefono(pais), headers="keys", tablefmt="github"))
 
