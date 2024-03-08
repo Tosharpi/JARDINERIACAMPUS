@@ -25,7 +25,7 @@ if __name__ == "__main__":
                     1. Cliente
                     2. Oficina
                     3. Empleado
-                    $. Pedido
+                    4. Pedido
     """)
 
     
