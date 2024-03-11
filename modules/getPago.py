@@ -65,8 +65,10 @@ def menu():
         
         opcion = int(input('Seleccione la opcion: '))
         if (opcion == 1):
+            
             print(tabulate(getCodClientesPago2008(), headers="keys", tablefmt="github"))
         elif (opcion == 2):
+            
             print(tabulate(getAllPagPayPal(), headers="keys", tablefmt="github"))
         elif (opcion == 3):
             
