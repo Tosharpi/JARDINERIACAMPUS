@@ -1,5 +1,5 @@
 import storage.empleados as em 
-
+from tabulate import tabulate
 # cevuelve un listado con el nombre, apellidos y email
 # de los empleados  segun el codigo del jefe
 
@@ -68,6 +68,19 @@ def menu():
                                                                                 \$$                                                            
                                                                                                                    
           1. Ver los empleados de cada jefe (codigo jefe)
-          2. 
+          2. Informacion del jefe de la empresa
+          3. Tener todos los empleados que no sean representantes de ventas
 
 """)
+    
+    opcion = int(input("Seleccione una de las opciones: "))
+
+    if(opcion == 1):
+        codigo = int(input('Ingrese el codigo del jefe: '))
+        print(tabulate(getAllNombreApellidoEmailJefe(codigo), headers="keys", tablefmt="github"))
+    elif(opcion == 2):
+        
+        print(tabulate(getAllNombrePuestoNombreApellidoEmail(), headers="keys", tablefmt="github"))
+    elif(opcion == 3):
+        
+        print(tabulate(getNoRepresentanteDeVentas(), headers="keys", tablefmt="github"))
