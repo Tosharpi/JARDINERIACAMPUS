@@ -1,5 +1,6 @@
 import storage.pago as pag
 from datetime import datetime
+from tabulate import tabulate
 
 def getCodClientesPago2008():
     codigosclientespago2008 = []
@@ -50,8 +51,26 @@ def getAllFormasPago():
     return FormasPago
 
 def menu():
-    print("""
-    MENU DE PAGO
-          
-          1. Obtener todos los clientes que realizaron un pago en el 2008
-""")
+    while True:
+
+        print("""
+        MENU DE PAGO
+            
+            0. Salir
+            1. Obtener todos los clientes que realizaron un pago en el 2008
+            2. Obtener todos los clientes que pagaron con PayPal
+            3. Obtener todas las formas de pago
+            
+    """)
+        
+        opcion = int(input('Seleccione la opcion: '))
+        if (opcion == 1):
+            print(tabulate(getCodClientesPago2008(), headers="keys", tablefmt="github"))
+        elif (opcion == 2):
+            print(tabulate(getAllPagPayPal(), headers="keys", tablefmt="github"))
+        elif (opcion == 3):
+            
+            print(tabulate(getAllFormasPago(), headers="keys", tablefmt="github"))
+        elif (opcion == 0):
+            break
+    

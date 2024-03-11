@@ -1,11 +1,11 @@
 #import modules.getClients as cliente 
 from tabulate import tabulate
-import sys
 import modules.getClients as cliente
 import modules.getOficina as oficina
 import modules.getEmpleado as empleado
 import modules.getPedido as pedido
 import modules.getPago as pago
+import modules.getProducto as prod
 
 if __name__ == "__main__":
 
@@ -29,6 +29,8 @@ if __name__ == "__main__":
                     2. Oficina
                     3. Empleado
                     4. Pedido
+                    5. Pago
+                    6. Poductos
                     0. Salir
     """)
 
@@ -43,6 +45,10 @@ if __name__ == "__main__":
             empleado.menu()
         elif(opcion == 4):
             pedido.menu()
+        elif(opcion == 5):
+            pago.menu()
+        elif(opcion == 6):
+            prod.menu()
         elif(opcion == 0):
             break
 
