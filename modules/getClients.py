@@ -1,7 +1,6 @@
 import storage.clientes as cli 
 from tabulate import tabulate
 
-
 def getAllClientName():
     clienteName =list()
     for i, val in enumerate(cli.clientes):
@@ -77,6 +76,8 @@ def getClientesPais(pais):
                }
            )
     return ClientesPais
+
+
 
 def menu():
 
