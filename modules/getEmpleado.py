@@ -52,35 +52,39 @@ def getNoRepresentanteDeVentas():
     return NoRepresentanteDeVentas
 
 def menu():
-    print(""" 
+    while True:
 
-       __       __                                      ________                          __                            __                     
-      |  \     /  \                                    |        \                        |  \                          |  \                    
-      | $$\   /  $$  ______   _______   __    __       | $$$$$$$$ ______ ____    ______  | $$  ______    ______    ____| $$  ______    _______ 
-      | $$$\ /  $$$ /      \ |       \ |  \  |  \      | $$__    |      \    \  /      \ | $$ /      \  |      \  /      $$ /      \  /       \
-      | $$$$\  $$$$|  $$$$$$\| $$$$$$$\| $$  | $$      | $$  \   | $$$$$$\$$$$\|  $$$$$$\| $$|  $$$$$$\  \$$$$$$\|  $$$$$$$|  $$$$$$\|  $$$$$$$
-      | $$\$$ $$ $$| $$    $$| $$  | $$| $$  | $$      | $$$$$   | $$ | $$ | $$| $$  | $$| $$| $$    $$ /      $$| $$  | $$| $$  | $$ \$$    \ 
-      | $$ \$$$| $$| $$$$$$$$| $$  | $$| $$__/ $$      | $$_____ | $$ | $$ | $$| $$__/ $$| $$| $$$$$$$$|  $$$$$$$| $$__| $$| $$__/ $$ _\$$$$$$\
-      | $$  \$ | $$ \$$     \| $$  | $$ \$$    $$      | $$     \| $$ | $$ | $$| $$    $$| $$ \$$     \ \$$    $$ \$$    $$ \$$    $$|       $$
-       \$$      \$$  \$$$$$$$ \$$   \$$  \$$$$$$        \$$$$$$$$ \$$  \$$  \$$| $$$$$$$  \$$  \$$$$$$$  \$$$$$$$  \$$$$$$$  \$$$$$$  \$$$$$$$ 
-                                                                               | $$                                                            
-                                                                               | $$                                                            
-                                                                                \$$                                                            
-                                                                                                                   
-          1. Ver los empleados de cada jefe (codigo jefe)
-          2. Informacion del jefe de la empresa
-          3. Tener todos los empleados que no sean representantes de ventas
+        print(""" 
 
-""")
-    
-    opcion = int(input("Seleccione una de las opciones: "))
+        __       __                                      ________                          __                            __                     
+        |  \     /  \                                    |        \                        |  \                          |  \                    
+        | $$\   /  $$  ______   _______   __    __       | $$$$$$$$ ______ ____    ______  | $$  ______    ______    ____| $$  ______    _______ 
+        | $$$\ /  $$$ /      \ |       \ |  \  |  \      | $$__    |      \    \  /      \ | $$ /      \  |      \  /      $$ /      \  /       \
+        | $$$$\  $$$$|  $$$$$$\| $$$$$$$\| $$  | $$      | $$  \   | $$$$$$\$$$$\|  $$$$$$\| $$|  $$$$$$\  \$$$$$$\|  $$$$$$$|  $$$$$$\|  $$$$$$$
+        | $$\$$ $$ $$| $$    $$| $$  | $$| $$  | $$      | $$$$$   | $$ | $$ | $$| $$  | $$| $$| $$    $$ /      $$| $$  | $$| $$  | $$ \$$    \ 
+        | $$ \$$$| $$| $$$$$$$$| $$  | $$| $$__/ $$      | $$_____ | $$ | $$ | $$| $$__/ $$| $$| $$$$$$$$|  $$$$$$$| $$__| $$| $$__/ $$ _\$$$$$$\
+        | $$  \$ | $$ \$$     \| $$  | $$ \$$    $$      | $$     \| $$ | $$ | $$| $$    $$| $$ \$$     \ \$$    $$ \$$    $$ \$$    $$|       $$
+        \$$      \$$  \$$$$$$$ \$$   \$$  \$$$$$$        \$$$$$$$$ \$$  \$$  \$$| $$$$$$$  \$$  \$$$$$$$  \$$$$$$$  \$$$$$$$  \$$$$$$  \$$$$$$$ 
+                                                                                | $$                                                            
+                                                                                | $$                                                            
+                                                                                    \$$                                                            
+                                                                                                                    
+            1. Ver los empleados de cada jefe (codigo jefe)
+            2. Informacion del jefe de la empresa
+            3. Tener todos los empleados que no sean representantes de ventas
 
-    if(opcion == 1):
-        codigo = int(input('Ingrese el codigo del jefe: '))
-        print(tabulate(getAllNombreApellidoEmailJefe(codigo), headers="keys", tablefmt="github"))
-    elif(opcion == 2):
+    """)
         
-        print(tabulate(getAllNombrePuestoNombreApellidoEmail(), headers="keys", tablefmt="github"))
-    elif(opcion == 3):
-        
-        print(tabulate(getNoRepresentanteDeVentas(), headers="keys", tablefmt="github"))
+        opcion = int(input("Seleccione una de las opciones: "))
+
+        if(opcion == 1):
+            codigo = int(input('Ingrese el codigo del jefe: '))
+            print(tabulate(getAllNombreApellidoEmailJefe(codigo), headers="keys", tablefmt="github"))
+        elif(opcion == 2):
+            
+            print(tabulate(getAllNombrePuestoNombreApellidoEmail(), headers="keys", tablefmt="github"))
+        elif(opcion == 3):
+            
+            print(tabulate(getNoRepresentanteDeVentas(), headers="keys", tablefmt="github"))
+        elif(opcion == 0):
+            break

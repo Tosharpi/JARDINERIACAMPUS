@@ -1,6 +1,6 @@
 import storage.pedido as ped 
 from datetime import datetime
-
+from tabulate import tabulate
 
 def getCodigoPedido(codigoPed):
     for val in ped.pedido:
@@ -23,7 +23,7 @@ def getEstadosPedido():
     return estadosPedido
 
 
-#devuelve un listado con el codigo de perdido,
+#devuelve un listado con el codigo de pedido,
 #codigo de cliente, fecha esperada y 
 #fecha de entrega de los pedidos que no han sido entregados a tiempo.
 
@@ -118,4 +118,43 @@ def getAllPedEntEnero():
 
     return AllPedEntEnero
 
+def menu():
+    while True:
 
+        print(""" 
+
+
+                MENU DE PEDIDOS
+
+            0. Salir                                                                                                        
+            1. El codigo del cliente segun el pedido (cod pedido)
+            2. Obtener el estado de todos los pedidos
+            3. Informacion de pedidos que no han sido entregados a tiempo 
+            4. Informacion de pedidos entregados dos dias (o mas) antes de la fecha de entrega
+            5. Obtener los pedidos rechazados en el 2008
+            6. Obtener los pedidos entregados en enero de cualquier mes
+            
+    """)
+        
+        opcion = int(input("Seleccione una de las opciones: "))
+
+        if(opcion == 1):
+            codigoPed = int(input('Ingrese el codigo del pedido: '))
+            print(tabulate(getCodigoPedido(codigoPed), headers="keys", tablefmt="github"))
+        elif(opcion == 2):
+            
+            print(tabulate(getEstadosPedido(), headers="keys", tablefmt="github"))
+        elif(opcion == 3):
+            
+            print(tabulate(getAllPedidosEntregadosAtrasadosDeTiempo(), headers="keys", tablefmt="github"))
+        elif(opcion == 4):
+
+            print(tabulate(getAllPedAntesFechaEsperada(), headers="keys", tablefmt="github"))
+        elif(opcion == 5):
+
+            print(tabulate(getAllPedRechazadosEn2008(), headers="keys", tablefmt="github"))
+        elif(opcion == 6):
+
+            print(tabulate(getAllPedEntEnero(), headers="keys", tablefmt="github"))
+        elif(opcion == 0):
+            break

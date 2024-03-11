@@ -78,7 +78,9 @@ def getClientesPais(pais):
     return ClientesPais
 
 def menu():
-    print(""" 
+
+    while True:
+        print(""" 
 
     _______                                             __                                      __                  __                             ______   __  __                        __                         
     |       \                                           |  \                                    |  \                |  \                           /      \ |  \|  \                      |  \                        
@@ -93,34 +95,38 @@ def menu():
                         | $$                                                                                                                                                                                          
                         \$$                                                                                                                                                                                          
 
+          0. Salir
           1. Obtener todos los clientes (codigo y nombre)
           2. Obtener un cliente por el codigo (codigo y nombre)
           3. Obtener toda la informacion de clientes según su limite de credito y ciudad que pertenece (ejemplo: 3000.0, San Francisco)
           4. Obtener todos los clientes de un pais, una region y una ciudad (pais, region, ciudad)
           5. Obtener el nombre de contacto de un cliente (codigo del cliente)
           6. Obtener clientes segun el pais
+            
 """)
 
-    opcion = int(input("Seleccione una de las opciones: "))
+        opcion = int(input("Seleccione una de las opciones: "))
 
-    if(opcion == 1):
+        if(opcion == 1):
 
-        print(tabulate(getAllClientName(), headers="keys", tablefmt="github"))
-    elif(opcion == 2):
-        codigo = int(input('Ingrese el codigo del cliente: '))
-        print(tabulate(getOneClientCodigo(codigo), headers="keys", tablefmt="github"))
-    elif(opcion == 3):
-        limiteCredit = float(input('Ingresa el limite del credito: '))
-        ciudad = input('Ingresa la ciudad: ')
-        print(tabulate(getAllClientCreditoCiudad(limiteCredit, ciudad), headers="keys", tablefmt="github"))
-    elif(opcion == 4):
-        pais = input('Ingresa el pais: ') 
-        region = input('Ingresa la region: ') or None
-        ciudad = input('Ingresa la ciudad: ') or None
-        print(tabulate(getAllClientPaisRegionCiudad(pais, region, ciudad), headers="keys", tablefmt="github"))
-    elif(opcion == 5):
-        codigo = int(input('Ingrese el codigo del cliente: '))
-        print(tabulate(getNombreContacto(codigo), headers="keys", tablefmt="github"))
-    elif(opcion == 6):
-        pais = input('ingrese el pais: ')
-        print(tabulate(getClientesPais(pais), headers="keys", tablefmt="github"))
+            print(tabulate(getAllClientName(), headers="keys", tablefmt="github"))
+        elif(opcion == 2):
+            codigo = int(input('Ingrese el codigo del cliente: '))
+            print(tabulate(getOneClientCodigo(codigo), headers="keys", tablefmt="github"))
+        elif(opcion == 3):
+            limiteCredit = float(input('Ingresa el limite del credito: '))
+            ciudad = input('Ingresa la ciudad: ')
+            print(tabulate(getAllClientCreditoCiudad(limiteCredit, ciudad), headers="keys", tablefmt="github"))
+        elif(opcion == 4):
+            pais = input('Ingresa el pais: ') 
+            region = input('Ingresa la region: ') or None
+            ciudad = input('Ingresa la ciudad: ') or None
+            print(tabulate(getAllClientPaisRegionCiudad(pais, region, ciudad), headers="keys", tablefmt="github"))
+        elif(opcion == 5):
+            codigo = int(input('Ingrese el codigo del cliente: '))
+            print(tabulate(getNombreContacto(codigo), headers="keys", tablefmt="github"))
+        elif(opcion == 6):
+            pais = input('ingrese el pais: ')
+            print(tabulate(getClientesPais(pais), headers="keys", tablefmt="github"))
+        elif(opcion == 0):
+            break

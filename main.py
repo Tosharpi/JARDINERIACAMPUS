@@ -8,7 +8,10 @@ import modules.getPedido as pedido
 import modules.getPago as pago
 
 if __name__ == "__main__":
-    print(f"""
+
+    while True:
+
+        print(f"""
 
         __       __                                      _______             __                      __                      __ 
         |  \     /  \                                    |       \           |  \                    |  \                    |  $
@@ -26,15 +29,20 @@ if __name__ == "__main__":
                     2. Oficina
                     3. Empleado
                     4. Pedido
+                    0. Salir
     """)
 
     
-opcion = int(input("Seleccione una de las opciones: "))  
+        opcion = int(input("Seleccione una de las opciones: "))  
 
-if(opcion == 1):
-    cliente.menu()
-elif(opcion == 2):
-    oficina.menu()
-elif(opcion == 3):
-    empleado.menu()
+        if(opcion == 1):
+            cliente.menu()
+        elif(opcion == 2):
+            oficina.menu()
+        elif(opcion == 3):
+            empleado.menu()
+        elif(opcion == 4):
+            pedido.menu()
+        elif(opcion == 0):
+            break
 

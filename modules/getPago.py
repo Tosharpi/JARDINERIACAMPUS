@@ -49,3 +49,9 @@ def getAllFormasPago():
     
     return FormasPago
 
+def menu():
+    print("""
+    MENU DE PAGO
+          
+          1. Obtener todos los clientes que realizaron un pago en el 2008
+""")

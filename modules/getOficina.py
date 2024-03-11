@@ -29,7 +29,8 @@ def getAllCiudadTelefono(pais):
     return ciudadTelefono
 
 def menu():
-    print(""" 
+    while True:
+        print(""" 
 
  __       __                                       ______    ______   __            __                               
 |  \     /  \                                     /      \  /      \ |  \          |  \                              
@@ -41,14 +42,18 @@ def menu():
 | $$  \$ | $$ \$$     \| $$  | $$ \$$    $$       \$$    $$| $$      | $$ \$$     \| $$| $$  | $$ \$$    $$|       $$
  \$$      \$$  \$$$$$$$ \$$   \$$  \$$$$$$         \$$$$$$  \$$       \$$  \$$$$$$$ \$$ \$$   \$$  \$$$$$$$ \$$$$$$$ 
                                                                                                                      
+          0. Salir
           1. La oficina de cada ciudad
           2. La ciudad y el telefono de cada oficina segun el pais (pais)
 
     """)
-    opcion = int(input('Seleccione la opcion: '))
-    if (opcion == 1):
-        print(tabulate(getAllCodigoCiudad(), headers="keys", tablefmt="github"))
-    if (opcion == 2):
-        pais = input('Ingrese el país: ')
-        print(tabulate(getAllCiudadTelefono(pais), headers="keys", tablefmt="github"))
+        opcion = int(input('Seleccione la opcion: '))
+        if (opcion == 1):
+            print(tabulate(getAllCodigoCiudad(), headers="keys", tablefmt="github"))
+        elif (opcion == 2):
+            pais = input('Ingrese el país: ')
+            print(tabulate(getAllCiudadTelefono(pais), headers="keys", tablefmt="github"))
+        elif (opcion == 0):
+            break
+
 
