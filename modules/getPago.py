@@ -56,14 +56,39 @@ def getAllClientPag():
     allClientPag =[]
     for val in pag.pago:
         for val2 in cli.clientes:
-            if val.get("codigo_cliente") == val2.get("codigo_cliente"):
+            for val3 in emp.empleados:
+                if val2.get("codigo_cliente") == val.get("codigo_cliente") and val2.get("codigo_empleado_rep_ventas") == val3.get("codigo_empleado"): 
 
-                for val3 in emp.empleados:
                     allClientPag.append(
                         {
-                            "nombre":val.get
+                            "codigo_cliente":val.get("codigo_cliente"),
+                            "nombre":val2.get("nombre_cliente"),
+                            "cod_representante": val2.get("codigo_empleado_rep_ventas"),
+                            "nombre_empleado": val3.get("nombre")
                         }
                     )
+    return allClientPag
+
+def getAllNoPay():
+    allNoPay = []
+    for val in cli.clientes:
+        pagos = False
+        for d in pag.pago:
+                if val.get('codigo_cliente')== d.get('codigo_cliente'):
+                    pagos = True
+                    break
+        if not pagos:
+            for d in emp.empleados:
+                if val.get('codigo_empleado_rep_ventas') == d.get('codigo_empleado'):
+                    if d.get('puesto') == 'Representante Ventas':
+                        allNoPay.append({
+
+                                'codigo': val.get('codigo_cliente'),
+                                "Nombre Cliente": val.get("nombre_cliente"),
+                                "puesto": d.get("puesto"),
+                                "Representante de ventas": d.get('nombre')
+                            })
+    return allNoPay
 
 def menu():
     while True:
@@ -75,6 +100,8 @@ def menu():
             1. Obtener todos los clientes que realizaron un pago en el 2008
             2. Obtener todos los clientes que pagaron con PayPal
             3. Obtener todas las formas de pago
+            4. Obtener todos los clientes que realizaron un pago, junto con sus representantes
+            5. Obtener todos los clientes que no realizaron un pago, junto con sus representantes
             
     """)
         
@@ -88,6 +115,12 @@ def menu():
         elif (opcion == 3):
             
             print(tabulate(getAllFormasPago(), headers="keys", tablefmt="github"))
+        elif (opcion == 4):
+            
+            print(tabulate(getAllClientPag(), headers="keys", tablefmt="github"))
+        elif (opcion == 5):
+            
+            print(tabulate(getAllNoPay(), headers="keys", tablefmt="github"))
         elif (opcion == 0):
             break
     
