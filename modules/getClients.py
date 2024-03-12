@@ -1,4 +1,5 @@
 import storage.clientes as cli 
+import storage.empleados as emp
 from tabulate import tabulate
 
 def getAllClientName():
@@ -77,7 +78,33 @@ def getClientesPais(pais):
            )
     return ClientesPais
 
+def getCityEmploy(ciudad):
+    clientCity =[]
+    for val in cli.clientes:
+        if(val.get("ciudad")) == ciudad and (val.get("codigo_empleado_rep_ventas") == 11) or (val.get("codigo_empleado_rep_ventas") == 30):
+            clientCity.append(
+                {
+                "codigoCliente": val.get("codigo_cliente"),
+                "nombreCliente": val.get("nombre_cliente"),
+                "ciudad": val.get("ciudad"),
+                "representante_de_ventas": val.get("codigo_empleado_rep_ventas")
+                }
+            )
+    return clientCity
 
+def getAllClientRep():
+    allClientRep = []
+    for val in cli.clientes:
+        for val2 in emp.empleados:
+            if val.get("codigo_empleado_rep_ventas") == val2.get("codigo_empleado") and val2.get("puesto") == "Representante Ventas":
+                allClientRep.append(
+                    {
+                        "nombre": val.get("nombre_cliente"),
+                        "nombre_rep": val2.get("nombre"),
+                        "apellido_rep": f"{val2.get('apellido1')}  {val2.get('apellido2')}"
+                    }
+                )
+    return allClientRep
 
 def menu():
 
@@ -104,7 +131,9 @@ def menu():
           4. Obtener todos los clientes de un pais, una region y una ciudad (pais, region, ciudad)
           5. Obtener el nombre de contacto de un cliente (codigo del cliente)
           6. Obtener clientes segun el pais
-            
+          7. Obtener todos los clientes segun su ciudad y su representante de ventas
+          8. Obtener todos los clientes y sus representantes de ventas
+
 """)
 
         opcion = int(input("Seleccione una de las opciones: "))
@@ -130,5 +159,11 @@ def menu():
         elif(opcion == 6):
             pais = input('ingrese el pais: ')
             print(tabulate(getClientesPais(pais), headers="keys", tablefmt="github"))
+        elif(opcion == 7):
+            ciudad = input('Ingrese la ciudad: ')
+            print(tabulate(getCityEmploy(ciudad), headers="keys", tablefmt="github"))
+        elif(opcion == 8):
+            
+            print(tabulate(getAllClientRep(), headers="keys", tablefmt="github"))
         elif(opcion == 0):
             break
