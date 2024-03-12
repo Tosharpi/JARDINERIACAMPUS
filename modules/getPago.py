@@ -1,4 +1,6 @@
 import storage.pago as pag
+import storage.clientes as cli
+import storage.empleados as emp
 from datetime import datetime
 from tabulate import tabulate
 
@@ -49,6 +51,19 @@ def getAllFormasPago():
     FormasPago = list(set(tuple(item.items()) for item in FormasPago))
     
     return FormasPago
+
+def getAllClientPag():
+    allClientPag =[]
+    for val in pag.pago:
+        for val2 in cli.clientes:
+            if val.get("codigo_cliente") == val2.get("codigo_cliente"):
+
+                for val3 in emp.empleados:
+                    allClientPag.append(
+                        {
+                            "nombre":val.get
+                        }
+                    )
 
 def menu():
     while True:
