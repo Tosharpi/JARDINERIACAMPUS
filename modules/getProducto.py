@@ -1,9 +1,18 @@
-import storage.producto as prod
+
+import json
+import requests
+import modules.postProducto as postProduct
 from tabulate import tabulate
+
+def getAllData():
+    #http://172.16.100.136:5001
+    peticion = requests.get("http://172.16.100.136:5002")
+    data = peticion.json()
+    return data
 
 def getAllStockPriceGama(gama, stock):
     condiciones = []
-    for val in prod.producto:
+    for val in getAllData():
         if(val.get("gama") == gama and val.get("cantidad_en_stock") >= stock):
             condiciones.append(val)
 
@@ -31,7 +40,7 @@ def getAllStockPriceGama(gama, stock):
 
 def getStockProduct(codProd):
     StockProduct = []
-    for val in prod.producto:
+    for val in getAllData():
         if val.get("codigo_producto") == codProd:
             StockProduct.append({
             "codProd":val.get("codigo_producto"),
@@ -43,7 +52,7 @@ def getStockProduct(codProd):
 
 def getAllProv():
     allProv=[]
-    for val in prod.producto:
+    for val in getAllData():
         allProv.append({
             "codigo_producto": val.get("codigo_producto"),
             "nombre": val.get("nombre"),
@@ -53,7 +62,7 @@ def getAllProv():
 
 def getProd(nombre_producto):
     prodList=[]
-    for val in prod.producto:
+    for val in getAllData():
         if val.get("nombre") == nombre_producto:
 
             prodList.append({
@@ -70,11 +79,14 @@ def menu():
             
         print("""
             MENU  PRODUCTOS
-            
+              
+            0. Para salir
             1. Obtener todos los productos segun su gama y su stock (gama, stock)
             2. Obtener el stock de un producto segun su codigo (codigo producto)
             3. Todos los productos y sus proveedores
             4. Buscar el precio y el stock de un producto por el nombre (nombre producto)
+            5. Ingresar un nuevo producto al sistema
+              
         """)
         opcion = int(input("Seleccione una de las opciones: "))
         if opcion == 1:
@@ -90,6 +102,20 @@ def menu():
         if opcion == 4:
             nombre_producto = input('Ingrese el nombre del producto: ')
             print(tabulate(getProd(nombre_producto), headers="keys", tablefmt="github"))
+        if opcion == 5:
+            producto = {
+                "codigo_producto": input("Ingrese el codigo del producto: "),
+                "nombre": input("Ingrese el nombre del producto: "),
+                "gama": input("Ingrese la gama del producto: "),
+                "dimensiones": input("Ingrese las dimensiones del producto: "),
+                "proveedor": input("Ingrese el proveedor del producto: "),
+                "descripcion": input("Ingrese la descripsion del producto: "),
+                "cantidad_en_stock": int(input("Ingrese el stock del producto: ")),
+                "precio_venta": int(input("Ingrese el precio del producto: ")),
+                "precio_proveedor": int(input("Ingrese el precio de proveedor del producto: "))
+            }
+            postProduct.postProducto(producto)
+            print("producto guardado")
         if opcion == 0:
             break
             
