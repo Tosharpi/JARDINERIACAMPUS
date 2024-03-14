@@ -1,5 +1,5 @@
 #import modules.getClients as cliente 
-from tabulate import tabulate
+import os
 import modules.getClients as cliente
 import modules.getOficina as oficina
 import modules.getEmpleado as empleado
@@ -12,7 +12,7 @@ import modules.getProducto as prod
 if __name__ == "__main__":
 
     while True:
-
+        os.system("clear")
         print(f"""
 
         __       __                                      _______             __                      __                      __ 

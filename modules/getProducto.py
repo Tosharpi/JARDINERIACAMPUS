@@ -103,19 +103,7 @@ def menu():
             nombre_producto = input('Ingrese el nombre del producto: ')
             print(tabulate(getProd(nombre_producto), headers="keys", tablefmt="github"))
         if opcion == 5:
-            producto = {
-                "codigo_producto": input("Ingrese el codigo del producto: "),
-                "nombre": input("Ingrese el nombre del producto: "),
-                "gama": input("Ingrese la gama del producto: "),
-                "dimensiones": input("Ingrese las dimensiones del producto: "),
-                "proveedor": input("Ingrese el proveedor del producto: "),
-                "descripcion": input("Ingrese la descripsion del producto: "),
-                "cantidad_en_stock": int(input("Ingrese el stock del producto: ")),
-                "precio_venta": int(input("Ingrese el precio del producto: ")),
-                "precio_proveedor": int(input("Ingrese el precio de proveedor del producto: "))
-            }
-            postProduct.postProducto(producto)
-            print("producto guardado")
+            print(tabulate(postProduct.postProducto(), headers="keys", tablefmt="github"))
         if opcion == 0:
             break
             
