@@ -3,7 +3,7 @@ import json
 import requests
 
 def postProducto():
-    #json-server storage/producto.json -b 5001
+    
     producto = {
                 "codigo_producto": input("Ingrese el codigo del producto: "),
                 "nombre": input("Ingrese el nombre del producto: "),
@@ -15,7 +15,7 @@ def postProducto():
                 "precio_venta": int(input("Ingrese el precio del producto: ")),
                 "precio_proveedor": int(input("Ingrese el precio de proveedor del producto: "))
             }
-    peticion = requests.post("http://172.16.100.136:5001", data=json.dumps(producto))
+    peticion = requests.post("http://172.16.100.136:5001", data=json.dumps(producto, indent=4).encode("UTF-8"))
     res = peticion.json()
     res["Mensaje"] = "Producto guardado"
     return [res]

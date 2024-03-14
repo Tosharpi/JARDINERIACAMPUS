@@ -1,0 +1,1 @@
+json-server storage/producto.json -b 5001 & json-server storage/gama_producto.json -b 5002 & json-server storage/clientes.json -b 5003

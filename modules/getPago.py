@@ -1,5 +1,4 @@
 import storage.pago as pag
-import storage.clientes as cli
 import storage.empleados as emp
 from datetime import datetime
 from tabulate import tabulate

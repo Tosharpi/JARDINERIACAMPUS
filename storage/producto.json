@@ -2831,5 +2831,17 @@
         "precio_venta": 2,
         "precio_proveedor": 3,
         "id": 277
+    },
+    {
+        "codigo_producto": "34",
+        "nombre": "faf",
+        "gama": "Ornamentales",
+        "dimensiones": "sdf",
+        "proveedor": "dv",
+        "descripcion": "sgrsv",
+        "cantidad_en_stock": 12,
+        "precio_venta": 34,
+        "precio_proveedor": 24,
+        "id": 278
     }
 ]

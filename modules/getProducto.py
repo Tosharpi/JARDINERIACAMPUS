@@ -5,7 +5,7 @@ import modules.postProducto as postProduct
 from tabulate import tabulate
 
 def getAllData():
-    #http://172.16.100.136:5001
+    
     peticion = requests.get("http://172.16.100.136:5002")
     data = peticion.json()
     return data
