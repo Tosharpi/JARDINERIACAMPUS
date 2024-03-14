@@ -1,11 +1,12 @@
-import storage.oficina as of 
+import modules.crudOficinas as crudOfice
 from tabulate import tabulate
+import os
 #Devuelve un listado
 #oficina y la ciudad
 
 def getAllCodigoCiudad():
     codigoCiudad = []
-    for val in of.oficina:
+    for val in crudOfice.getAllDataOfice():
         codigoCiudad.append({
             "codigo_oficina" : val.get("codigo_oficina"),
             "ciudad" : val.get("ciudad")
@@ -17,7 +18,7 @@ def getAllCodigoCiudad():
 
 def getAllCiudadTelefono(pais):
     ciudadTelefono = []
-    for val in of.oficina:
+    for val in crudOfice.getAllDataOfice():
         if(val.get("pais")==pais):
 
             ciudadTelefono.append({
@@ -30,6 +31,7 @@ def getAllCiudadTelefono(pais):
 
 def menu():
     while True:
+        os.system("clear")
         print(""" 
 
  __       __                                       ______    ______   __            __                               
@@ -50,9 +52,11 @@ def menu():
         opcion = int(input('Seleccione la opcion: '))
         if (opcion == 1):
             print(tabulate(getAllCodigoCiudad(), headers="keys", tablefmt="github"))
+            input('Para continuar oprima alguna tecla...')
         elif (opcion == 2):
             pais = input('Ingrese el país: ')
             print(tabulate(getAllCiudadTelefono(pais), headers="keys", tablefmt="github"))
+            input('Para continuar oprima alguna tecla...')
         elif (opcion == 0):
             break
 

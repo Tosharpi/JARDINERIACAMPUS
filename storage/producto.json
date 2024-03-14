@@ -2843,5 +2843,17 @@
         "precio_venta": 34,
         "precio_proveedor": 24,
         "id": 278
+    },
+    {
+        "codigo_producto": "12",
+        "nombre": "MDMSAD",
+        "gama": "Ornamentales",
+        "dimensiones": "1345",
+        "proveedor": "pepe",
+        "descripcion": "el pepe",
+        "cantidad_en_stock": 100,
+        "precio_venta": 800,
+        "precio_proveedor": 400,
+        "id": 279
     }
 ]

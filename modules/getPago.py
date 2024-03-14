@@ -1,11 +1,13 @@
-import storage.pago as pag
-import storage.empleados as emp
+import os
 from datetime import datetime
 from tabulate import tabulate
+import modules.crudClientes as crudCli
+import modules.crudPago as crudPag
+import modules.crudEmpleados as crudEmpl
 
 def getCodClientesPago2008():
     codigosclientespago2008 = []
-    for val in pag.pago:
+    for val in crudPag.getAllDataPago():
         año = val.get("fecha_pago")
 
         if año.startswith("2008"):  
@@ -23,7 +25,7 @@ def getCodClientesPago2008():
 
 def getAllPagPayPal():
     AllPagPayPal = []
-    for val in pag.pago:
+    for val in crudPag.getAllDataPago():
 
         pago= "/".join(val.get("fecha_pago").split("-")[::-1])
         start = datetime.strptime(pago, "%d/%m/%Y")
@@ -41,7 +43,7 @@ def getAllPagPayPal():
 
 def getAllFormasPago():
     FormasPago = list()
-    for FP in pag.pago:
+    for FP in crudPag.getAllDataPago():
         if(FP.get("forma_pago") != None):
             FormasPago.append({
                 "forma_pago" : (FP.get("forma_pago"))
@@ -53,9 +55,9 @@ def getAllFormasPago():
 
 def getAllClientPag():
     allClientPag =[]
-    for val in pag.pago:
-        for val2 in cli.clientes:
-            for val3 in emp.empleados:
+    for val in crudPag.getAllDataPago():
+        for val2 in crudCli.getAllDataClient():
+            for val3 in crudEmpl.getAllDataEmpl():
                 if val2.get("codigo_cliente") == val.get("codigo_cliente") and val2.get("codigo_empleado_rep_ventas") == val3.get("codigo_empleado"): 
 
                     allClientPag.append(
@@ -70,14 +72,14 @@ def getAllClientPag():
 
 def getAllNoPay():
     allNoPay = []
-    for val in cli.clientes:
+    for val in crudCli.getAllDataClient():
         pagos = False
-        for d in pag.pago:
+        for d in crudPag.getAllDataPago():
                 if val.get('codigo_cliente')== d.get('codigo_cliente'):
                     pagos = True
                     break
         if not pagos:
-            for d in emp.empleados:
+            for d in crudEmpl.getAllDataEmpl():
                 if val.get('codigo_empleado_rep_ventas') == d.get('codigo_empleado'):
                     if d.get('puesto') == 'Representante Ventas':
                         allNoPay.append({
@@ -91,7 +93,7 @@ def getAllNoPay():
 
 def menu():
     while True:
-
+        os.system("clear")
         print("""
         MENU DE PAGO
             
@@ -106,20 +108,20 @@ def menu():
         
         opcion = int(input('Seleccione la opcion: '))
         if (opcion == 1):
-            
             print(tabulate(getCodClientesPago2008(), headers="keys", tablefmt="github"))
+            input('Para continuar oprima alguna tecla...')
         elif (opcion == 2):
-            
             print(tabulate(getAllPagPayPal(), headers="keys", tablefmt="github"))
+            input('Para continuar oprima alguna tecla...')
         elif (opcion == 3):
-            
             print(tabulate(getAllFormasPago(), headers="keys", tablefmt="github"))
+            input('Para continuar oprima alguna tecla...')
         elif (opcion == 4):
-            
             print(tabulate(getAllClientPag(), headers="keys", tablefmt="github"))
+            input('Para continuar oprima alguna tecla...')
         elif (opcion == 5):
-            
             print(tabulate(getAllNoPay(), headers="keys", tablefmt="github"))
+            input('Para continuar oprima alguna tecla...')
         elif (opcion == 0):
             break
     

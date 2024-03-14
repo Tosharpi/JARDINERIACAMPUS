@@ -2,7 +2,7 @@
 import json
 import requests
 
-def postProducto():
+def postProduct():
     
     producto = {
                 "codigo_producto": input("Ingrese el codigo del producto: "),
@@ -15,7 +15,8 @@ def postProducto():
                 "precio_venta": int(input("Ingrese el precio del producto: ")),
                 "precio_proveedor": int(input("Ingrese el precio de proveedor del producto: "))
             }
-    peticion = requests.post("http://172.16.100.136:5001", data=json.dumps(producto, indent=4).encode("UTF-8"))
+    headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
+    peticion = requests.post("http://172.16.103.33:5001",  headers=headers , data=json.dumps(producto, indent=4))
     res = peticion.json()
     res["Mensaje"] = "Producto guardado"
     return [res]

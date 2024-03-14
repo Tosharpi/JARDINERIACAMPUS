@@ -1,108 +1,111 @@
 import json
-import requests
 import os
+import requests
 from tabulate import tabulate
+import modules.crudClientes as crudcli
+import modules.crudEmpleados as crudEmpl
 
-def getAllData():
-    
-    peticion = requests.get("http://172.16.100.136:5003")
-    data = peticion.json()
-    return data
 
 def getAllClientName():
-    clienteName =list()
-    for i, val in enumerate(getAllData()):
-        codigoName=dict({
-            "codigo_cliente":val.get('codigo_cliente'),
-            "nombre_cliente":val.get('nombre_cliente')
+    clienteName = []
+    for val in crudcli.getAllDataClient():
+        clienteName.append({
+            "codigo_cliente": val.get("codigo_cliente"),
+            "nombre_cliente": val.get("nombre_cliente")
         })
-        clienteName.append(codigoName)
-        
+
     return clienteName
 
+
 def getOneClientCodigo(codigo):
-    for val in getAllData():
-        if(val.get('codigo_cliente') == codigo):
-           return [{
-            "codigo_cliente":val.get('codigo_cliente'),
-            "nombre_cliente":val.get('nombre_cliente')
-           }]
-        
+    for val in crudcli.getAllDataClient():
+        if (val.get('codigo_cliente') == codigo):
+            return [{
+                "codigo_cliente": val.get('codigo_cliente'),
+                "nombre_cliente": val.get('nombre_cliente')
+            }]
+
+
 def getAllClientCreditoCiudad(limiteCredit, ciudad):
-    clienteCredito =list()
-    for val in getAllData():
-        if(val.get('limite_credito') >= limiteCredit and val.get('ciudad') == ciudad):
+    clienteCredito = list()
+    for val in crudcli.getAllDataClient():
+        if (val.get('limite_credito') >= limiteCredit and val.get('ciudad') == ciudad):
             clienteCredito.append({
-               "codigo": val.get('codigo_cliente'),
-               "nombre": val.get('nombre_cliente'),
-               "limite": val.get('limite_credito'),
-               "ciudad": val.get('ciudad')
+                "codigo": val.get('codigo_cliente'),
+                "nombre": val.get('nombre_cliente'),
+                "limite": val.get('limite_credito'),
+                "ciudad": val.get('ciudad')
             })
-        
+
     return clienteCredito
+
 
 def getAllClientPaisRegionCiudad(pais, region, ciudad):
     clientZone = list()
-    for val in getAllData():
-        
+    for val in crudcli.getAllDataClient():
+
         if (val.get("pais") == pais):
-            #print("algo")
+            # print("algo")
             if (val.get("region") == region) or region == None and (val.get("ciudad") == ciudad) or ciudad == None:
-                #print('algosss')            
+                # print('algosss')
                 clientZone.append({
-                "codigo":val.get("codigo_cliente"),
-                "pais":val.get("pais"),
-                "ciudad":val.get("ciudad"),
-                "region":val.get("region")
+                    "codigo": val.get("codigo_cliente"),
+                    "pais": val.get("pais"),
+                    "ciudad": val.get("ciudad"),
+                    "region": val.get("region")
                 })
-                
+
     return clientZone
+
 
 def getNombreContacto(codigo):
 
-    contacClient=[]
-    for val in getAllData():
-        if(val.get('codigo_cliente') == codigo):
-           
-           contacClient.append({
-            "codigo_cliente":val.get('codigo_cliente'),
-            "nombre_contacto":val.get('nombre_contacto'),
-            "apellido_contacto":val.get('apellido_contacto')
-           })
-           
+    contacClient = []
+    for val in crudcli.getAllDataClient():
+        if (val.get('codigo_cliente') == codigo):
+
+            contacClient.append({
+                "codigo_cliente": val.get('codigo_cliente'),
+                "nombre_contacto": val.get('nombre_contacto'),
+                "apellido_contacto": val.get('apellido_contacto')
+            })
+
     return contacClient
 
+
 def getClientesPais(pais):
-    ClientesPais=[]
-    for val in getAllData():
-       if(val.get("pais") == pais):
-           ClientesPais.append(
-               {
-                   "codigo_cliente":{val.get("codigo_cliente")},
-                   "nombre_cliente":{val.get("nombre_cliente")},
-                   "pais": {val.get("pais")}
-               }
-           )
+    ClientesPais = []
+    for val in crudcli.getAllDataClient():
+        if (val.get("pais") == pais):
+            ClientesPais.append(
+                {
+                    "codigo_cliente": {val.get("codigo_cliente")},
+                    "nombre_cliente": {val.get("nombre_cliente")},
+                    "pais": {val.get("pais")}
+                }
+            )
     return ClientesPais
 
+
 def getCityEmploy(ciudad):
-    clientCity =[]
-    for val in getAllData():
-        if(val.get("ciudad")) == ciudad and (val.get("codigo_empleado_rep_ventas") == 11) or (val.get("codigo_empleado_rep_ventas") == 30):
+    clientCity = []
+    for val in crudcli.getAllDataClient():
+        if (val.get("ciudad")) == ciudad and (val.get("codigo_empleado_rep_ventas") == 11) or (val.get("codigo_empleado_rep_ventas") == 30):
             clientCity.append(
                 {
-                "codigoCliente": val.get("codigo_cliente"),
-                "nombreCliente": val.get("nombre_cliente"),
-                "ciudad": val.get("ciudad"),
-                "representante_de_ventas": val.get("codigo_empleado_rep_ventas")
+                    "codigoCliente": val.get("codigo_cliente"),
+                    "nombreCliente": val.get("nombre_cliente"),
+                    "ciudad": val.get("ciudad"),
+                    "representante_de_ventas": val.get("codigo_empleado_rep_ventas")
                 }
             )
     return clientCity
 
+
 def getAllClientRep():
     allClientRep = []
-    for val in getAllData():
-        for val2 in emp.empleados:
+    for val in crudcli.getAllDataClient():
+        for val2 in crudEmpl.getAllDataEmpl():
             if val.get("codigo_empleado_rep_ventas") == val2.get("codigo_empleado") and val2.get("puesto") == "Representante Ventas":
                 allClientRep.append(
                     {
@@ -113,11 +116,12 @@ def getAllClientRep():
                 )
     return allClientRep
 
+
 def menu():
 
     while True:
         os.system("clear")
-        print(""" 
+        print("""
 
     _______                                             __                                      __                  __                             ______   __  __                        __                         
     |       \                                           |  \                                    |  \                |  \                           /      \ |  \|  \                      |  \                        
@@ -146,38 +150,38 @@ def menu():
 
         opcion = int(input("Seleccione una de las opciones: "))
 
-        if(opcion == 1):
+        if opcion == 1:
             print(tabulate(getAllClientName(), headers="keys", tablefmt="github"))
             input('Para continuar oprima alguna tecla...')
-        elif(opcion == 2):
+        elif opcion == 2:
             codigo = int(input('Ingrese el codigo del cliente: '))
             print(tabulate(getOneClientCodigo(codigo), headers="keys", tablefmt="github"))
             input('Para continuar oprima alguna tecla...')
-        elif(opcion == 3):
+        elif opcion == 3:
             limiteCredit = float(input('Ingresa el limite del credito: '))
             ciudad = input('Ingresa la ciudad: ')
             print(tabulate(getAllClientCreditoCiudad(limiteCredit, ciudad), headers="keys", tablefmt="github"))
             input('Para continuar oprima alguna tecla...')
-        elif(opcion == 4):
-            pais = input('Ingresa el pais: ') 
+        elif opcion == 4:
+            pais = input('Ingresa el pais: ')
             region = input('Ingresa la region: ') or None
             ciudad = input('Ingresa la ciudad: ') or None
             print(tabulate(getAllClientPaisRegionCiudad(pais, region, ciudad), headers="keys", tablefmt="github"))
             input('Para continuar oprima alguna tecla...')
-        elif(opcion == 5):
+        elif opcion == 5:
             codigo = int(input('Ingrese el codigo del cliente: '))
-            print(tabulate(getNombreContacto(codigo), headers="keys", tablefmt="github"))
+            print(tabulate(getNombreContacto(codigo),headers="keys", tablefmt="github"))
             input('Para continuar oprima alguna tecla...')
-        elif(opcion == 6):
+        elif opcion == 6:
             pais = input('ingrese el pais: ')
-            print(tabulate(getClientesPais(pais), headers="keys", tablefmt="github"))
+            print(tabulate(getClientesPais(pais),headers="keys", tablefmt="github"))
             input('Para continuar oprima alguna tecla...')
-        elif(opcion == 7):
+        elif opcion == 7:
             ciudad = input('Ingrese la ciudad: ')
-            print(tabulate(getCityEmploy(ciudad), headers="keys", tablefmt="github"))
+            print(tabulate(getCityEmploy(ciudad),headers="keys", tablefmt="github"))
             input('Para continuar oprima alguna tecla...')
-        elif(opcion == 8):
-            
+        elif opcion == 8:
             print(tabulate(getAllClientRep(), headers="keys", tablefmt="github"))
-        elif(opcion == 0):
+            input('Para continuar oprima alguna tecla...')
+        elif opcion == 0:
             break

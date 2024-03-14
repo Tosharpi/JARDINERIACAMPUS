@@ -7,6 +7,15 @@ import modules.getPedido as pedido
 import modules.getPago as pago
 import modules.getProducto as prod
 
+def menuProducto():
+    print("""
+        
+
+
+
+
+
+""")
 
 
 if __name__ == "__main__":

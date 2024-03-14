@@ -1,23 +1,27 @@
-import storage.pedido as ped 
+import os
 from datetime import datetime
 from tabulate import tabulate
+import modules.crudPedidos as crudPed
+
 
 def getCodigoPedido(codigoPed):
-    for val in ped.pedido:
+    listPed =[]
+    for val in crudPed.getAllDataPedidos():
         if (val.get('codigo_pedido') == codigoPed):
-            return {
-            "codigo_pedido":{val.get('codigo_pedido')},
-            "codigo_cliente":{val.get('codigo_cliente')}
-           }
+            listPed.append({
+            "codigo_pedido":val.get('codigo_pedido'),
+            "codigo_cliente":val.get('codigo_cliente')
+           })
+    return listPed
 
 def getEstadosPedido():
     estadosPedido = []
-    for val in ped.pedido:
+    for val in crudPed.getAllDataPedidos():
         val.get("estado")
         estadosPedido.append(
             {
-                "codigo_pedido":{val.get("codigo_pedido")},
-                "estado":{val.get("estado")}
+                "codigo_pedido":val.get("codigo_pedido"),
+                "estado":val.get("estado")
             }
         )
     return estadosPedido
@@ -29,7 +33,7 @@ def getEstadosPedido():
 
 def getAllPedidosEntregadosAtrasadosDeTiempo():
     pedidosEntregado = []
-    for pedidos in ped.pedido:
+    for pedidos in crudPed.getAllDataPedidos():
         if (pedidos.get("estado") == "Entregado" and pedidos.get("fecha_entrega") is None):
             pedidos["fecha_entrega"]= pedidos.get("fecha_esperada")
             
@@ -56,7 +60,7 @@ def getAllPedidosEntregadosAtrasadosDeTiempo():
 
 def getAllPedAntesFechaEsperada():
     pedidosAntesFechaEsperada = []
-    for val in ped.pedido:
+    for val in crudPed.getAllDataPedidos():
 
         if (val.get("estado") == "Entregado" and val.get("fecha_entrega") is None):
             val["fecha_entrega"]= val.get("fecha_esperada")
@@ -81,7 +85,7 @@ def getAllPedAntesFechaEsperada():
 
 def getAllPedRechazadosEn2008():
     pedidosRechazadosEn2008 = []
-    for val in ped.pedido:
+    for val in crudPed.getAllDataPedidos():
         if val.get("estado") == "Rechazado":
             if val.get("fecha_pedido")[0:4] == "2008" and val.get("fecha_esperada")[0:4] == "2008":
                 pedidosRechazadosEn2008.append({
@@ -97,7 +101,7 @@ def getAllPedRechazadosEn2008():
 
 def getAllPedEntEnero():
     AllPedEntEnero = []
-    for val in ped.pedido:
+    for val in crudPed.getAllDataPedidos():
 
         if (val.get("estado") == "Entregado" and val.get("fecha_entrega") is None):
             val["fecha_entrega"]= val.get("fecha_esperada")
@@ -120,7 +124,7 @@ def getAllPedEntEnero():
 
 def menu():
     while True:
-
+        os.system("clear")
         print(""" 
 
 
@@ -141,20 +145,21 @@ def menu():
         if(opcion == 1):
             codigoPed = int(input('Ingrese el codigo del pedido: '))
             print(tabulate(getCodigoPedido(codigoPed), headers="keys", tablefmt="github"))
+            input('Para continuar oprima alguna tecla...')
         elif(opcion == 2):
-            
             print(tabulate(getEstadosPedido(), headers="keys", tablefmt="github"))
+            input('Para continuar oprima alguna tecla...')
         elif(opcion == 3):
-            
             print(tabulate(getAllPedidosEntregadosAtrasadosDeTiempo(), headers="keys", tablefmt="github"))
+            input('Para continuar oprima alguna tecla...')
         elif(opcion == 4):
-
             print(tabulate(getAllPedAntesFechaEsperada(), headers="keys", tablefmt="github"))
+            input('Para continuar oprima alguna tecla...')
         elif(opcion == 5):
-
             print(tabulate(getAllPedRechazadosEn2008(), headers="keys", tablefmt="github"))
+            input('Para continuar oprima alguna tecla...')
         elif(opcion == 6):
-
             print(tabulate(getAllPedEntEnero(), headers="keys", tablefmt="github"))
+            input('Para continuar oprima alguna tecla...')
         elif(opcion == 0):
             break

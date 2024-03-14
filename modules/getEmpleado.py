@@ -1,12 +1,14 @@
-import storage.empleados as em 
 from tabulate import tabulate
+import modules.crudEmpleados as crudEmpl
+import os
 # cevuelve un listado con el nombre, apellidos y email
 # de los empleados  segun el codigo del jefe
+
 
 def getAllNombreApellidoEmailJefe(codigo):
     nombreApellidoEmail = []
 
-    for val in em.empleados:
+    for val in crudEmpl.getAllDataEmpl():
         if(val.get("codigo_jefe") == codigo):
           
           nombreApellidoEmail.append(
@@ -25,7 +27,7 @@ def getAllNombreApellidoEmailJefe(codigo):
 
 def getAllNombrePuestoNombreApellidoEmail():
     NombrePuestoNombreApellidoEmail = []
-    for val in em.empleados:
+    for val in crudEmpl.getAllDataEmpl():
         if (val.get("codigo_jefe")) == None:
             NombrePuestoNombreApellidoEmail.append({
                 "puesto": val.get("puesto"),
@@ -40,7 +42,7 @@ def getAllNombrePuestoNombreApellidoEmail():
 
 def getNoRepresentanteDeVentas():
     NoRepresentanteDeVentas=[]
-    for val in em.empleados:
+    for val in crudEmpl.getAllDataEmpl():
         if(val.get("puesto") != "Representante Ventas"):
             NoRepresentanteDeVentas.append(
                 {
@@ -53,7 +55,7 @@ def getNoRepresentanteDeVentas():
 
 def menu():
     while True:
-
+        os.system("clear")
         print(""" 
 
         __       __                                      ________                          __                            __                     
@@ -80,11 +82,12 @@ def menu():
         if(opcion == 1):
             codigo = int(input('Ingrese el codigo del jefe: '))
             print(tabulate(getAllNombreApellidoEmailJefe(codigo), headers="keys", tablefmt="github"))
+            input('Para continuar oprima alguna tecla...')
         elif(opcion == 2):
-            
             print(tabulate(getAllNombrePuestoNombreApellidoEmail(), headers="keys", tablefmt="github"))
+            input('Para continuar oprima alguna tecla...')
         elif(opcion == 3):
-            
             print(tabulate(getNoRepresentanteDeVentas(), headers="keys", tablefmt="github"))
+            input('Para continuar oprima alguna tecla...')
         elif(opcion == 0):
             break
