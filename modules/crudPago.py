@@ -3,7 +3,7 @@ import requests
 import os
 
 def getAllDataPago():
-    peticion = requests.get("http://172.16.100.136:5006")
+    peticion = requests.get("http://172.16.103.39:5006")
     data = peticion.json()
     return data
 
@@ -16,7 +16,7 @@ def postPago():
         "total": int(input("Ingrese el total del pago: "))
     }
     headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
-    peticion = requests.post("http://172.16.100.136:5006",  headers=headers , data=json.dumps(pago, indent=4))
+    peticion = requests.post("http://172.16.103.39:5006",  headers=headers , data=json.dumps(pago, indent=4))
     res = peticion.json()
     res["Mensaje"] = "pago guardado"
     return [res]

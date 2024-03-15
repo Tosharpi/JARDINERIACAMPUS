@@ -7,9 +7,20 @@ from tabulate import tabulate
 
 def getAllDataProd():
 
-    peticion = requests.get("http://172.16.100.136:5001")
+    peticion = requests.get("http://172.16.103.39:5001")
     data = peticion.json()
     return data
+
+def getCrudCodigoProd(codigo):
+    for val in getAllDataProd():
+        data = list()
+        if(val.get("codigo_producto") == codigo):
+            data.append(val)
+    return data
+
+# if(not producto.get("gama")):
+#     gama = input("Ingrese la gama del producto: ")
+
 
 def postProduct():
     producto={}
@@ -20,61 +31,85 @@ def postProduct():
 
                 codigo = input("Ingrese el codigo del producto: ")
                 if(re.match(r'^[A-Z]{2}-[0-9]{3}$', codigo) is not None):
-                    data = getCrudCodigoProd(codigo)
-                    if(data):
-                        print(tabulate(data, headers="keys", tablefmt="github"))
+                    datas = getCrudCodigoProd(codigo)
+                    if(datas):
+                        print(tabulate(datas, headers="keys", tablefmt="github"))
                         raise Exception("el codigo producto ya existe")
                     else:
                         producto["codigo_producto"] = codigo
                 else:
                     raise Exception ("el codigo  del producto no cumple con el estandar establecido")
                 
-            if(not producto.get("nombre")):
+            elif not producto.get("nombre"):
 
                 nombre = input("Ingrese el nombre del producto: ")
                 if(re.match(r'^[A-Z][a-z]*(?: [A-Z][a-z]*)*$', nombre) is not None):
                     producto["nombre"] = nombre
-                    break
                 else:
                     raise Exception ("el nombre del producto no cumple con el estandar establecido")
-            # if(not producto.get("gama")):
-            #     gama = input("Ingrese la gama del producto: ")
-
-            if not producto.get("dimensiones") is not None:
-
+           
+# generame una expresion regular que valide una cadena de maximo 5 numeros al inicio, luego valide una "x" y por ultimo que valide otra cadena de maximo 5 numeros. la "x" debe de estar en medio de los numeros iniciales y los finales.
+# en python
+            elif not producto.get("dimensiones"):
                 dimensiones = input("Ingrese las dimensiones: ")
-                if re.match(r'^[0-9]{1,5}x[0-9]{1,5}$', dimensiones):
-                    print('algo')
+                if (re.match(r'^[0-9]{1,5}x[0-9]{1,5}$', dimensiones)is not None):
+                    producto["dimensiones"] = dimensiones
+                else:
+                    raise Exception ("las dimensiones del producto no cumplen con los parametros")
+            
+            # generame una expresion regular que valide un maximo de cuatro palabras, cada una que empiece con mayuscula o minuscula y permita espacios entre cada palabra, incluso que permita siglas, como por ejemplo "S.A"
+            elif not producto.get("proveedor"):
+                proveedor = input("Ingrese el proveedor: ")
+                if (re.match(r'^[A-Za-z\s\.]+(?: [A-Za-z\s\.]+){0,3}$', proveedor) is not None):
+                    producto["proveedor"] = proveedor
+                else:
+                    raise Exception ("el proveedor del producto no cumplen con los paarametros")
+                
+# generame una expresion regular que valide textos similares al siguiente: (ejemplo de descripcion de un producto)
+                    
+            elif not producto.get("descripcion"):
+                descripcion = input("Ingrese la descripcion: ")
+                producto["descripcion"] = descripcion
+                if descripcion == None:
+                    raise Exception ("la descripcion del producto no cumplen con los paarametros")
 
+# generame una expresion regular en donde valide solo numeros y que solo admita un limite de 4 numeros.
+            
+            elif not producto.get("cantidad_en_stock"):
+                cantidad_en_stock = input("Ingrese el stock: ")
+                if (re.match(r'^[0-9]{1,4}$', cantidad_en_stock) is not None):
+                    cantidad_en_stock = int(cantidad_en_stock)
+                    producto["cantidad_en_stock"] = cantidad_en_stock
+                    
+                else:
+                    raise Exception ("el stock del producto no cumplen con los paarametros")
+            
+# generame una expresion regular en donde valide solo numeros y que solo admita un limite de 4 numeros.
+            elif not producto.get("precio_venta"):
+                precio_venta = input("Ingrese el precio venta: ")
+                if (re.match(r'^[0-9]{1,4}$', precio_venta) is not None):
+                    precio_venta = int(precio_venta)
+                    producto["precio_venta"] = precio_venta
+                else:
+                    raise Exception ("el precio de venta del producto no cumplen con los paarametros")
+            
+            elif not producto.get("precio_proveedor"):
+                precio_proveedor = input("Ingrese el precio proveedor: ")
+                if (re.match(r'^[0-9]{1,4}$', precio_proveedor) is not None):
+                    precio_proveedor = int(precio_proveedor)
+                    producto["precio_proveedor"] = precio_proveedor
+                    break
+                else:
+                    raise Exception ("el precio de venta del producto no cumplen con los parametros")
+        
         except Exception as error:
             print(error)
-    print(producto)
-
-
-def getCrudCodigoProd(codigo):
-    for val in getAllDataProd():
-        if(val.get("codigo_producto") == codigo):
-            data = val
-    return [data]
-    
-
-# producto = {
-#             "codigo_producto": input("Ingrese el codigo del producto: "),
-#             "nombre": input("Ingrese el nombre del producto: "),
-#             "gama": input("Ingrese la gama del producto: "),
-#             "dimensiones": input("Ingrese las dimensiones del producto: "),
-#             "proveedor": input("Ingrese el proveedor del producto: "),
-#             "descripcion": input("Ingrese la descripsion del producto: "),
-#             "cantidad_en_stock": int(input("Ingrese el stock del producto: ")),
-#             "precio_venta": int(input("Ingrese el precio del producto: ")),
-#             "precio_proveedor": int(input("Ingrese el precio de proveedor del producto: "))
-#         }
-# headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
-# peticion = requests.post("http://172.16.100.136:5001",  headers=headers , data=json.dumps(producto, indent=4))
-# res = peticion.json()
-# res["Mensaje"] = "Producto guardado"
-# return [res]
-
+        
+    headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
+    peticion = requests.post("http://172.16.103.39:5001",  headers=headers , data=json.dumps(producto, indent=4))
+    res = peticion.json()
+    tablaProducto = [producto]
+    return print(tabulate(tablaProducto, headers="keys", tablefmt="github"))
 
 
 def menuCrudProduct():
