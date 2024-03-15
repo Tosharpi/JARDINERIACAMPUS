@@ -2,7 +2,7 @@ import os
 import json
 import requests
 from tabulate import tabulate
-import modules.postProducto as postProd
+import modules.crudProducto as postProd
 
 def getAllDataProduct():
     peticion = requests.get("http://172.16.103.33:5001")
@@ -72,7 +72,7 @@ def getProd(nombre_producto):
             })
     return prodList
 
-def menu():
+def menuReportesProduct():
 
     while True:
         os.system("clear")

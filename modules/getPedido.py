@@ -122,7 +122,7 @@ def getAllPedEntEnero():
 
     return AllPedEntEnero
 
-def menu():
+def menuReportesPedidos():
     while True:
         os.system("clear")
         print(""" 

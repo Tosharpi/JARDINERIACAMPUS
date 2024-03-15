@@ -91,7 +91,7 @@ def getAllNoPay():
                             })
     return allNoPay
 
-def menu():
+def menuReportesPago():
     while True:
         os.system("clear")
         print("""
