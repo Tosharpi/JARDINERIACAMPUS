@@ -18,9 +18,6 @@ def getCrudCodigoProd(codigo):
             data.append(val)
     return data
 
-# if(not producto.get("gama")):
-#     gama = input("Ingrese la gama del producto: ")
-
 
 def postProduct():
     producto={}
@@ -47,7 +44,14 @@ def postProduct():
                     producto["nombre"] = nombre
                 else:
                     raise Exception ("el nombre del producto no cumple con el estandar establecido")
-           
+            
+            elif not producto.get("gama"):
+                
+                gama = input("Ingrese la gama del producto: ")
+                if gama == "Ornamentales" or gama == "Frutales" or gama == "Herramientas" or gama == "Aromáticas" is not None:
+                    producto["gama"] = gama
+                else:
+                    raise Exception ("el nombre del producto no cumple con el estandar establecido")
 # generame una expresion regular que valide una cadena de maximo 5 numeros al inicio, luego valide una "x" y por ultimo que valide otra cadena de maximo 5 numeros. la "x" debe de estar en medio de los numeros iniciales y los finales.
 # en python
             elif not producto.get("dimensiones"):
@@ -143,5 +147,8 @@ def menuCrudProduct():
         if opcion == 1:
             postProduct()
             input('Oprima una tecla para continuar: ')
+        elif opcion == 2:
+            print("En progreso")    
+        
         elif opcion == 0:
             break

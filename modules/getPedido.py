@@ -1,12 +1,20 @@
+import json
+import requests
 import os
 from datetime import datetime
 from tabulate import tabulate
-import modules.crudPedidos as crudPed
 
+
+def getAllDataPedidos():
+    
+    peticion = requests.get("http://172.16.103.39:5007")
+    data = peticion.json()
+    return data
 
 def getCodigoPedido(codigoPed):
     listPed =[]
-    for val in crudPed.getAllDataPedidos():
+    
+    for val in getAllDataPedidos():
         if (val.get('codigo_pedido') == codigoPed):
             listPed.append({
             "codigo_pedido":val.get('codigo_pedido'),
@@ -16,7 +24,7 @@ def getCodigoPedido(codigoPed):
 
 def getEstadosPedido():
     estadosPedido = []
-    for val in crudPed.getAllDataPedidos():
+    for val in getAllDataPedidos():
         val.get("estado")
         estadosPedido.append(
             {
@@ -33,7 +41,7 @@ def getEstadosPedido():
 
 def getAllPedidosEntregadosAtrasadosDeTiempo():
     pedidosEntregado = []
-    for pedidos in crudPed.getAllDataPedidos():
+    for pedidos in getAllDataPedidos():
         if (pedidos.get("estado") == "Entregado" and pedidos.get("fecha_entrega") is None):
             pedidos["fecha_entrega"]= pedidos.get("fecha_esperada")
             
@@ -60,7 +68,7 @@ def getAllPedidosEntregadosAtrasadosDeTiempo():
 
 def getAllPedAntesFechaEsperada():
     pedidosAntesFechaEsperada = []
-    for val in crudPed.getAllDataPedidos():
+    for val in getAllDataPedidos():
 
         if (val.get("estado") == "Entregado" and val.get("fecha_entrega") is None):
             val["fecha_entrega"]= val.get("fecha_esperada")
@@ -85,7 +93,7 @@ def getAllPedAntesFechaEsperada():
 
 def getAllPedRechazadosEn2008():
     pedidosRechazadosEn2008 = []
-    for val in crudPed.getAllDataPedidos():
+    for val in getAllDataPedidos():
         if val.get("estado") == "Rechazado":
             if val.get("fecha_pedido")[0:4] == "2008" and val.get("fecha_esperada")[0:4] == "2008":
                 pedidosRechazadosEn2008.append({
@@ -101,7 +109,7 @@ def getAllPedRechazadosEn2008():
 
 def getAllPedEntEnero():
     AllPedEntEnero = []
-    for val in crudPed.getAllDataPedidos():
+    for val in getAllDataPedidos():
 
         if (val.get("estado") == "Entregado" and val.get("fecha_entrega") is None):
             val["fecha_entrega"]= val.get("fecha_esperada")
