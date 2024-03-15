@@ -3,9 +3,23 @@ import requests
 import os
 
 def getAllDataPago():
-    peticion = requests.get("http://172.16.103.33:5006")
+    peticion = requests.get("http://172.16.100.136:5006")
     data = peticion.json()
     return data
+
+def postPago():
+    pago={
+        "codigo_cliente": int(input("Ingrese el codigo del cliente: ")),
+        "forma_pago": input("Ingrese la forma de pago: "),
+        "id_transaccion": input("Ingrese la id del pago: "),
+        "fecha_pago": input("Ingrese la fecha del pago: "),
+        "total": int(input("Ingrese el total del pago: "))
+    }
+    headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
+    peticion = requests.post("http://172.16.100.136:5006",  headers=headers , data=json.dumps(pago, indent=4))
+    res = peticion.json()
+    res["Mensaje"] = "pago guardado"
+    return [res]
 
 def menuCrudPagos():
     while True:
@@ -36,7 +50,8 @@ def menuCrudPagos():
 
         opcion = int(input('Ingrese la opcion: '))
         if opcion == 1:
-            print('en desarrollo')
+            postPago()
+            input('Oprima una tecla para continuar: ')
         elif opcion == 0:
             break
 

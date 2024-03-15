@@ -4,9 +4,27 @@ import os
 
 def getAllDataEmpl():
     
-    peticion = requests.get("http://172.16.103.33:5004")
+    peticion = requests.get("http://172.16.100.136:5004")
     data = peticion.json()
     return data
+
+def postEmpl():
+    empl={
+        "codigo_empleado": int(input("Ingrese el codigo del empleado: ")),
+        "nombre": input("Ingrese el nombre del empleado: "),
+        "apellido1": input("Ingrese el apellido_1 del empleado: "),
+        "apellido2": input("Ingrese el apellido_2 del empleado: "),
+        "extension": input("Ingrese laextension  del empleado: "),
+        "email": input("Ingrese el email del empleado: "),
+        "codigo_oficina": input("Ingrese el codigo de la oficina: "),
+        "codigo_jefe": int(input("Ingrese el codigo del jefe: ")) or None,
+        "puesto": input("Ingrese el puesto del empleado: ")
+    }
+    headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
+    peticion = requests.post("http://172.16.100.136:5004",  headers=headers , data=json.dumps(empl, indent=4))
+    res = peticion.json()
+    res["Mensaje"] = "empleado guardado"
+    return [res]
 
 def menuCrudEmpl():
     while True:
@@ -36,7 +54,8 @@ def menuCrudEmpl():
 
         opcion = int(input('Ingrese la opcion: '))
         if opcion == 1:
-            print('en desarrollo')
+            postEmpl()
+            input('Oprima una tecla para continuar: ')
         elif opcion == 0:
             break
 

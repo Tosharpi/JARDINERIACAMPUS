@@ -4,7 +4,7 @@ import os
 
 def getAllDataClient():
 
-    peticion = requests.get("http://172.16.103.33:5003")
+    peticion = requests.get("http://172.16.100.136:5003")
     data = peticion.json()
     return data
 
@@ -27,7 +27,7 @@ def postCliente():
                 "limite_credito": int(input("Ingrese el limite de credito del cliente: "))
             }
     headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
-    peticion = requests.post("http://172.16.103.33:5003",  headers=headers , data=json.dumps(cliente, indent=4))
+    peticion = requests.post("http://172.16.100.136:5003",  headers=headers , data=json.dumps(cliente, indent=4))
     res = peticion.json()
     res["Mensaje"] = "cliente guardado"
     return [res]

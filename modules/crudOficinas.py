@@ -3,9 +3,26 @@ import requests
 import os
 
 def getAllDataOfice():
-    peticion = requests.get("http://172.16.103.33:5005")
+    peticion = requests.get("http://172.16.100.136:5005")
     data = peticion.json()
     return data
+
+def postOficina():
+    ofice={
+        "codigo_oficina": input("Ingrrese el codigo de la oficina: "),
+        "ciudad": input("Ingrrese ls ciudad de la oficina: "),
+        "pais": input("Ingrrese el pais de la oficina: "),
+        "region": input("Ingrrese el codigo de la oficina: "),
+        "codigo_postal": input("Ingrrese el codigo postal de la oficina: "),
+        "telefono": input("Ingrrese el telefono de la oficina: "),
+        "linea_direccion1": input("Ingrese la direccion_1 de la oficina: "),
+        "linea_direccion2": input("Ingrese la direccion_2 de la oficina: ")
+    }
+    headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
+    peticion = requests.post("http://172.16.100.136:5005",  headers=headers , data=json.dumps(ofice, indent=4))
+    res = peticion.json()
+    res["Mensaje"] = "oficina guardado"
+    return [res]
 
 def menuCrudOficina():
     while True:
@@ -35,7 +52,8 @@ def menuCrudOficina():
 
         opcion = int(input('Ingrese la opcion: '))
         if opcion == 1:
-            print('en desarrollo')
+            postOficina()
+            input('Oprima una tecla para continuar: ')
         elif opcion == 0:
             break
 
