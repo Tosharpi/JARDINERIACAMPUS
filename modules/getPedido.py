@@ -7,7 +7,7 @@ from tabulate import tabulate
 
 def getAllDataPedidos():
     
-    peticion = requests.get("http://172.16.103.39:5007")
+    peticion = requests.get("http://172.16.100.136:5007")
     data = peticion.json()
     return data
 

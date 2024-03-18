@@ -5,7 +5,7 @@ from tabulate import tabulate
 import modules.crudProducto as postProd
 
 def getAllDataProduct():
-    peticion = requests.get("http://172.16.103.39:5001")
+    peticion = requests.get("http://172.16.100.136:5001/productos")
     data = peticion.json()
     return data
 
@@ -72,6 +72,11 @@ def getProd(nombre_producto):
             })
     return prodList
 
+def getCodProd(id):
+    peticion = requests.get(f"http://172.16.100.136:5001/productos/{id}")
+    
+    return [peticion.json()] if peticion.ok else[]
+
 def menuReportesProduct():
 
     while True:
@@ -84,8 +89,7 @@ def menuReportesProduct():
             2. Obtener el stock de un producto segun su codigo (codigo producto)
             3. Todos los productos y sus proveedores
             4. Buscar el precio y el stock de un producto por el nombre (nombre producto)
-            5. Ingresar un nuevo producto al sistema
-              
+            5. Obtener el producto segun el codigo
         """)
         opcion = int(input("Seleccione una de las opciones: "))
         if opcion == 1:
@@ -93,20 +97,21 @@ def menuReportesProduct():
             stock = int(input('ingrese el stock: '))
             print(tabulate(getAllStockPriceGama(gama, stock), headers="keys", tablefmt="github"))
             input('Para continuar oprima alguna tecla...')
-        if opcion == 2:
+        elif opcion == 2:
             codProd = input('Ingrese el codigo del producto: ')
             print(tabulate(getStockProduct(codProd), headers="keys", tablefmt="github"))
             input('Para continuar oprima alguna tecla...')
-        if opcion == 3:
+        elif opcion == 3:
             print(tabulate(getAllProv(), headers="keys", tablefmt="github"))
             input('Para continuar oprima alguna tecla...')
-        if opcion == 4:
+        elif opcion == 4:
             nombre_producto = input('Ingrese el nombre del producto: ')
             print(tabulate(getProd(nombre_producto), headers="keys", tablefmt="github"))
             input('Para continuar oprima alguna tecla...')
-        if opcion == 5:
-            print(tabulate(postProd.postProduct(), headers="keys", tablefmt="github"))
+        elif opcion == 5:
+            codigo_producto = input('Ingrese el codigo del producto: ')
+            print(tabulate(getCodProd(codigo_producto), headers="keys", tablefmt="github"))
             input('Para continuar oprima alguna tecla...')
-        if opcion == 0:
+        elif opcion == 0:
             break
             

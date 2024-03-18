@@ -6,7 +6,7 @@ from tabulate import tabulate
 
 def getAllDataPedidos():
     
-    peticion = requests.get("http://172.16.103.39:5007")
+    peticion = requests.get("http://172.16.100.136:5007")
     data = peticion.json()
     return data
 
@@ -87,7 +87,7 @@ def postPedido():
             print(error)
         
     headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
-    peticion = requests.post("http://172.16.103.39:5007",  headers=headers , data=json.dumps(pedido, indent=4))
+    peticion = requests.post("http://172.16.100.136:5007",  headers=headers , data=json.dumps(pedido, indent=4))
     res = peticion.json()
     tablaPedido = [pedido]
     return print(tabulate(tablaPedido, headers="keys", tablefmt="github"))
