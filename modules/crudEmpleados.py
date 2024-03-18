@@ -4,7 +4,7 @@ import os
 
 def getAllDataEmpl():
     
-    peticion = requests.get("http://172.16.100.136:5004")
+    peticion = requests.get("http://172.16.103.32:5004")
     data = peticion.json()
     return data
 
@@ -21,7 +21,7 @@ def postEmpl():
         "puesto": input("Ingrese el puesto del empleado: ")
     }
     headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
-    peticion = requests.post("http://172.16.100.136:5004",  headers=headers , data=json.dumps(empl, indent=4))
+    peticion = requests.post("http://172.16.103.32:5004",  headers=headers , data=json.dumps(empl, indent=4))
     res = peticion.json()
     res["Mensaje"] = "empleado guardado"
     return [res]

@@ -5,7 +5,7 @@ from tabulate import tabulate
 import modules.crudProducto as postProd
 
 def getAllDataProduct():
-    peticion = requests.get("http://172.16.100.136:5001/productos")
+    peticion = requests.get("http://172.16.103.32:5001/productos")
     data = peticion.json()
     return data
 
@@ -73,8 +73,7 @@ def getProd(nombre_producto):
     return prodList
 
 def getCodProd(id):
-    peticion = requests.get(f"http://172.16.100.136:5001/productos/{id}")
-    
+    peticion = requests.get(f"http://172.16.103.32:5001/productos/{id}")  
     return [peticion.json()] if peticion.ok else[]
 
 def menuReportesProduct():

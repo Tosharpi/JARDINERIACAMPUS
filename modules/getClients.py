@@ -16,7 +16,6 @@ def getAllClientName():
 
     return clienteName
 
-
 def getOneClientCodigo(codigo):
     for val in crudcli.getAllDataClient():
         if (val.get('codigo_cliente') == codigo):
@@ -24,7 +23,6 @@ def getOneClientCodigo(codigo):
                 "codigo_cliente": val.get('codigo_cliente'),
                 "nombre_cliente": val.get('nombre_cliente')
             }]
-
 
 def getAllClientCreditoCiudad(limiteCredit, ciudad):
     clienteCredito = list()
@@ -38,7 +36,6 @@ def getAllClientCreditoCiudad(limiteCredit, ciudad):
             })
 
     return clienteCredito
-
 
 def getAllClientPaisRegionCiudad(pais, region, ciudad):
     clientZone = list()
@@ -57,7 +54,6 @@ def getAllClientPaisRegionCiudad(pais, region, ciudad):
 
     return clientZone
 
-
 def getNombreContacto(codigo):
 
     contacClient = []
@@ -72,7 +68,6 @@ def getNombreContacto(codigo):
 
     return contacClient
 
-
 def getClientesPais(pais):
     ClientesPais = []
     for val in crudcli.getAllDataClient():
@@ -85,7 +80,6 @@ def getClientesPais(pais):
                 }
             )
     return ClientesPais
-
 
 def getCityEmploy(ciudad):
     clientCity = []
@@ -101,7 +95,6 @@ def getCityEmploy(ciudad):
             )
     return clientCity
 
-
 def getAllClientRep():
     allClientRep = []
     for val in crudcli.getAllDataClient():
@@ -115,7 +108,6 @@ def getAllClientRep():
                     }
                 )
     return allClientRep
-
 
 def menuClientesReportes():
 

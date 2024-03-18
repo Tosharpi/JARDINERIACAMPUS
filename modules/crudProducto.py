@@ -8,7 +8,7 @@ import modules.getProducto as gT
 
 def getAllDataProd():
 
-    peticion = requests.get("http://172.16.100.136:5001")
+    peticion = requests.get("http://172.16.103.32:5001")
     data = peticion.json()
     return data
 
@@ -22,7 +22,7 @@ def getCrudCodigoProd(codigo):
 def deleteProducto(idProducto):
     data = gT.getCodProd(idProducto)
     if (len(data)):
-        peticion = requests.delete(f"http://172.16.100.136:5001/productos/{idProducto}")
+        peticion = requests.delete(f"http://172.16.103.32:5001/productos/{idProducto}")
         if peticion.status_code == 204:
             data.append({"message" : "el producto fue eliminado correctamente"})
             return{
@@ -130,7 +130,7 @@ def postProduct():
             print(error)
         
     headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
-    peticion = requests.post("http://172.16.100.136:5001",  headers=headers , data=json.dumps(producto, indent=4))
+    peticion = requests.post("http://172.16.103.32:5001",  headers=headers , data=json.dumps(producto, indent=4))
     res = peticion.json()
     tablaProducto = [producto]
     return print(tabulate(tablaProducto, headers="keys", tablefmt="github"))

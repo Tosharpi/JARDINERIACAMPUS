@@ -3,7 +3,7 @@ import requests
 import os
 
 def getAllDataOfice():
-    peticion = requests.get("http://172.16.100.136:5005")
+    peticion = requests.get("http://172.16.103.32:5005")
     data = peticion.json()
     return data
 
@@ -19,7 +19,7 @@ def postOficina():
         "linea_direccion2": input("Ingrese la direccion_2 de la oficina: ")
     }
     headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
-    peticion = requests.post("http://172.16.100.136:5005",  headers=headers , data=json.dumps(ofice, indent=4))
+    peticion = requests.post("http://172.16.103.32:5005",  headers=headers , data=json.dumps(ofice, indent=4))
     res = peticion.json()
     res["Mensaje"] = "oficina guardado"
     return [res]
