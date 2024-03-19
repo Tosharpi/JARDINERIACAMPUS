@@ -6,12 +6,12 @@ from tabulate import tabulate
 
 def getAllDataClient():
 
-    peticion = requests.get("http://172.16.103.32:5003")
+    peticion = requests.get("http://154.38.171.54:5001/cliente")
     data = peticion.json()
     return data
 
 def getCodClient(id):
-    peticion = requests.get(f"http://172.16.103.32:5003/clientes/{id}")
+    peticion = requests.get(f"http://172.16.100.136:5003/clientes/{id}")
     return [peticion.json()] if peticion.ok else[]
 
 def postCliente():
@@ -121,7 +121,7 @@ def postCliente():
             print(error)
 
     headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
-    peticion = requests.post("http://172.16.103.32:5003/clientes",  headers=headers , data=json.dumps(cliente, indent=4))
+    peticion = requests.post("http://172.16.100.136:5003/clientes",  headers=headers , data=json.dumps(cliente, indent=4))
     res = peticion.json()
     tablaCliente = [cliente]
     print(tabulate(tablaCliente, headers="keys", tablefmt="github"))
@@ -129,7 +129,7 @@ def postCliente():
 def deletClient(id):
     data = getCodClient(id)
     if (len(data)):
-        peticion = requests.delete(f"http://172.16.103.32:5003/clientes/{id}")
+        peticion = requests.delete(f"http://172.16.100.136:5003/clientes/{id}")
         if peticion.status_code == 204:
             data.append({"message" : "el producto fue eliminado correctamente"})
             return{

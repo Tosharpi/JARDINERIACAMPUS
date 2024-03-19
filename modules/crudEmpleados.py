@@ -6,18 +6,18 @@ import re
 
 def getAllDataEmpl():
     
-    peticion = requests.get("http://172.16.103.32:5004/empleados")
+    peticion = requests.get("http://154.38.171.54:5003/empleados")
     data = peticion.json()
     return data
 
 def getCodEmpl(id):
-    peticion = requests.get(f"http://172.16.103.32:5004/empleados/{id}")
+    peticion = requests.get(f"http://172.16.100.136:5004/empleados/{id}")
     return [peticion.json()] if peticion.ok else[]
 
 def deletEmpl(id):
     data = getCodEmpl(id)
     if (len(data)):
-        peticion = requests.delete(f"http://172.16.103.32:5004/empleados/{id}")
+        peticion = requests.delete(f"http://172.16.100.136:5004/empleados/{id}")
         if peticion.status_code == 204:
             data.append({"message" : "el producto fue eliminado correctamente"})
             return{
@@ -104,7 +104,7 @@ def postEmpl():
             print(error)
 
     headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
-    peticion = requests.post("http://172.16.103.32:5004/empleados",  headers=headers , data=json.dumps(empleado, indent=4))
+    peticion = requests.post("http://172.16.100.136:5004/empleados",  headers=headers , data=json.dumps(empleado, indent=4))
     res = peticion.json()
     tablaEmpleado = [empleado]
     print(tabulate(tablaEmpleado, headers="keys", tablefmt="github"))

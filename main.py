@@ -163,6 +163,11 @@ def menusProductos():
 """)
 
 if __name__ == "__main__":
+    
+    # peticion = requests.get("http://154.38.171.54:5008/productos?gama=Ornamentales&cantidadEnEstock_gte=100")
+    # data = json.dumps(peticion.json(), indent=4)
+    # print(data)
+    
     while True:
         os.system("clear")
         
@@ -251,12 +256,12 @@ if __name__ == "__main__":
                 break
 
 
-    # with open("storage/oficina.json", "r") as f:
+    # with open("storage/pedido.json", "r") as f:
     #     fichero = f.read()
     #     data = json.loads(fichero)
     #     for i, val in enumerate(data):
     #         data[i]["id"] = (i+1)
     #     data = json.dumps(data, indent=4).encode("utf-8")
-    # with open("storage/oficina.json", "wb+") as f1:
+    # with open("storage/pedido.json", "wb+") as f1:
     #     f1.write(data)
     #     f1.close()

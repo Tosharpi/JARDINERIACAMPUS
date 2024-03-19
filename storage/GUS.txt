@@ -5,3 +5,14 @@ json-server storage/empleados.json -b 5004 & /
 json-server storage/oficina.json -b 5005 & /
 json-server storage/pago.json -b 5006 & /
 json-server storage/pedido.json -b 5007
+
+http://154.38.171.54:5005/oficina
+
+http://154.38.171.54:5001/cliente
+http://154.38.171.54:5002/detalle_pedido
+http://154.38.171.54:5003/empleados
+http://154.38.171.54:5004/gama
+http://154.38.171.54:5005/oficinas
+http://154.38.171.54:5006/pagos
+http://154.38.171.54:5007/pedidos
+http://154.38.171.54:5008/productos
