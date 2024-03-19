@@ -1,6 +1,4 @@
-import json
 import os
-import requests
 from tabulate import tabulate
 import modules.crudClientes as crudcli
 import modules.crudEmpleados as crudEmpl

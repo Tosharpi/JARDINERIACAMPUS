@@ -56,7 +56,7 @@ def postProduct():
                         producto["codigo_producto"] = codigo
                 else:
                     raise Exception ("el codigo  del producto no cumple con el estandar establecido")
-                
+
             elif not producto.get("nombre"):
 
                 nombre = input("Ingrese el nombre del producto: ")
@@ -64,11 +64,11 @@ def postProduct():
                     producto["nombre"] = nombre
                 else:
                     raise Exception ("el nombre del producto no cumple con el estandar establecido")
-            
+
             elif not producto.get("gama"):
                 
                 gama = input("Ingrese la gama del producto: ")
-                if gama == "Ornamentales" or gama == "Frutales" or gama == "Herramientas" or gama == "Aromáticas" is not None:
+                if gama == "Ornamentales" or gama == "Frutales" or gama == "Herramientas" or gama == "Aromáticas":
                     producto["gama"] = gama
                 else:
                     raise Exception ("el nombre del producto no cumple con el estandar establecido")
@@ -169,7 +169,7 @@ def menuCrudProduct():
             input('Oprima una tecla para continuar: ')
         elif opcion == 2:
             idProducto = input('Ingrese el id del producto: ')
-            print (deleteProducto(idProducto)["body"])
+            print (tabulate(deleteProducto(idProducto)["body"], headers="keys", tablefmt="github"))
             input('Oprima una tecla para continuar: ')
         
         elif opcion == 0:

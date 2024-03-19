@@ -37,18 +37,6 @@
             "id": 3
         },
         {
-            "codigo_producto": "30310",
-            "nombre": "Azad\u00f3n",
-            "gama": "Herramientas",
-            "dimensiones": "0,168",
-            "proveedor": "HiperGarden Tools",
-            "descripcion": "Longitud:24cm. Herramienta fabricada en acero y pintura epoxi,alargando su durabilidad y preveniendo la corrosi\u00f3n.Dise\u00f1o pensado para el ahorro de trabajo.",
-            "cantidad_en_stock": 15,
-            "precio_venta": 12,
-            "precio_proveedor": 11,
-            "id": 4
-        },
-        {
             "codigo_producto": "AR-001",
             "nombre": "Ajedrea",
             "gama": "Arom\u00e1ticas",

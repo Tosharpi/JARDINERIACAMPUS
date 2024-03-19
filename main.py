@@ -163,126 +163,100 @@ def menusProductos():
 """)
 
 if __name__ == "__main__":
-
-    cliente ={}
-    try:
-        if not cliente.get("codigo_cliente"):
-            
-            codigo = input("Ingrese el codigo del cliente: ")
-            if(re.match(r"^[0-9]{1,10}$", codigo) is not None):
-                datas = crudClient.getCodClient(codigo)
-                if datas:
-                    print(tabulate(datas, headers="keys", tablefmt="github"))
-                    raise Exception("el codigo del cliente ya existe")
-                else:
-                    codigo = int(codigo)
-                    cliente["codigo_cliente"] = codigo
-            else: 
-                raise Exception("el codigo  del producto no cumple con el estandar establecido")
-    except Exception as error:
-        print(error)
-
-    headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
-    peticion = requests.post("http://172.16.103.32:5003/clientes",  headers=headers , data=json.dumps(cliente, indent=4))
-    res = peticion.json()
-    tablaCliente = [cliente]
-    print(tabulate(tablaCliente, headers="keys", tablefmt="github"))
-    
-    
-    # while True:
-    #     os.system("clear")
+    while True:
+        os.system("clear")
         
-    #     menuPrincipal()
+        menuPrincipal()
         
 
-    #     opcion = input("Seleccione una de las opciones: ")
+        opcion = input("Seleccione una de las opciones: ")
         
-    #     #   toca importar "re"
-    #     if(re.match(r'[0-9]+$', opcion) is not None):
-    #         opcion = int(opcion)
-    #         if(opcion == 1):
-    #             while True:
-    #                 os.system("clear")
-    #                 menusClient()
-    #                 opcion = int(input("Seleccione una de las opciones: "))
+        #   toca importar "re"
+        if(re.match(r'[0-9]+$', opcion) is not None):
+            opcion = int(opcion)
+            if(opcion == 1):
+                while True:
+                    os.system("clear")
+                    menusClient()
+                    opcion = int(input("Seleccione una de las opciones: "))
 
-    #                 if opcion == 1:
-    #                     client.menuClientesReportes()
-    #                 elif opcion == 2:
-    #                     crudClient.menuCrudClientes()
-    #                 elif opcion == 0:
-    #                     break
+                    if opcion == 1:
+                        client.menuClientesReportes()
+                    elif opcion == 2:
+                        crudClient.menuCrudClientes()
+                    elif opcion == 0:
+                        break
 
-    #         elif(opcion == 2):
-    #             while True:
-    #                 os.system("clear")
-    #                 menusOficinas()
-    #                 opcion = int(input("Seleccione una de las opciones: "))
-    #                 if opcion == 1:
-    #                     oficina.menuReportesOficinas()
-    #                 elif opcion == 2:
-    #                     crudOfice.menuCrudOficina()
-    #                 elif opcion == 0:
-    #                     break
+            elif(opcion == 2):
+                while True:
+                    os.system("clear")
+                    menusOficinas()
+                    opcion = int(input("Seleccione una de las opciones: "))
+                    if opcion == 1:
+                        oficina.menuReportesOficinas()
+                    elif opcion == 2:
+                        crudOfice.menuCrudOficina()
+                    elif opcion == 0:
+                        break
 
-    #         elif(opcion == 3):
-    #             while True:
-    #                 os.system("clear")
-    #                 menusEmpleados()
-    #                 opcion = int(input("Seleccione una de las opciones: "))
-    #                 if opcion == 1:
-    #                     empl.menuReportesEmpl()
-    #                 elif opcion == 2:
-    #                     crudEmpl.menuCrudEmpl()
-    #                 elif opcion == 0:
-    #                     break
+            elif(opcion == 3):
+                while True:
+                    os.system("clear")
+                    menusEmpleados()
+                    opcion = int(input("Seleccione una de las opciones: "))
+                    if opcion == 1:
+                        empl.menuReportesEmpl()
+                    elif opcion == 2:
+                        crudEmpl.menuCrudEmpl()
+                    elif opcion == 0:
+                        break
 
-    #         elif(opcion == 4):
-    #             while True:
-    #                 os.system("clear")
-    #                 menusPedidos()
-    #                 opcion = int(input("Seleccione una de las opciones: "))
-    #                 if opcion == 1:
-    #                     ped.menuReportesPedidos()
-    #                 elif opcion == 2:
-    #                     crudPed.menuCrudPedidos()
-    #                 elif opcion == 0:
-    #                     break
+            elif(opcion == 4):
+                while True:
+                    os.system("clear")
+                    menusPedidos()
+                    opcion = int(input("Seleccione una de las opciones: "))
+                    if opcion == 1:
+                        ped.menuReportesPedidos()
+                    elif opcion == 2:
+                        crudPed.menuCrudPedidos()
+                    elif opcion == 0:
+                        break
 
-    #         elif(opcion == 5):
-    #             while True:
-    #                 os.system("clear")
-    #                 menusPagos()
-    #                 opcion = int(input("Seleccione una de las opciones: "))
-    #                 if opcion == 1:
-    #                     pag.menuReportesPago()
-    #                 elif opcion == 2:
-    #                     crudPago.menuCrudPagos()
-    #                 elif opcion == 0:
-    #                     break
+            elif(opcion == 5):
+                while True:
+                    os.system("clear")
+                    menusPagos()
+                    opcion = int(input("Seleccione una de las opciones: "))
+                    if opcion == 1:
+                        pag.menuReportesPago()
+                    elif opcion == 2:
+                        crudPago.menuCrudPagos()
+                    elif opcion == 0:
+                        break
 
-    #         elif(opcion == 6):
-    #             while True:
-    #                 os.system("clear")
-    #                 menusProductos()
-    #                 opcion = int(input("Seleccione una de las opciones: "))
-    #                 if opcion == 1:
-    #                     prod.menuReportesProduct()
-    #                 elif opcion == 2:
-    #                     crudProd.menuCrudProduct()
-    #                 elif opcion == 0:
-    #                     break
+            elif(opcion == 6):
+                while True:
+                    os.system("clear")
+                    menusProductos()
+                    opcion = int(input("Seleccione una de las opciones: "))
+                    if opcion == 1:
+                        prod.menuReportesProduct()
+                    elif opcion == 2:
+                        crudProd.menuCrudProduct()
+                    elif opcion == 0:
+                        break
 
-    #         elif(opcion == 0):
-    #             break
+            elif(opcion == 0):
+                break
 
 
-    # with open("storage/clientes.json", "r") as f:
+    # with open("storage/oficina.json", "r") as f:
     #     fichero = f.read()
     #     data = json.loads(fichero)
     #     for i, val in enumerate(data):
     #         data[i]["id"] = (i+1)
     #     data = json.dumps(data, indent=4).encode("utf-8")
-    # with open("storage/clientes.json", "wb+") as f1:
+    # with open("storage/oficina.json", "wb+") as f1:
     #     f1.write(data)
     #     f1.close()
