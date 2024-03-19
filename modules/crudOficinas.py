@@ -5,12 +5,12 @@ import re
 from tabulate import tabulate
 
 def getAllDataOfice():
-    peticion = requests.get("http://172.16.100.136:5005/oficina")
+    peticion = requests.get("http://154.38.171.54:5005/oficinas")
     data = peticion.json()
     return data
 
 def getIdOfice(id):
-    peticion = requests.get(f"http://172.16.100.136:5005/oficina{id}")
+    peticion = requests.get(f"http://154.38.171.54:5005/oficinas/{id}")
     return [peticion.json()] if peticion.ok else[]
 
 def getCodOfice(cod_oficina):
@@ -20,7 +20,7 @@ def getCodOfice(cod_oficina):
 def deletOfice(id):
     data = getCodOfice(id)
     if (len(data)):
-        peticion = requests.delete(f"http://172.16.100.136:5005/oficina/{id}")
+        peticion = requests.delete(f"http://154.38.171.54:5005/oficinas/{id}")
         if peticion.status_code == 204:
             data.append({"message" : "la oficina fue eliminada correctamente"})
             return{
@@ -36,10 +36,6 @@ def deletOfice(id):
                 "status" : 400
 }]
 
-
-
-
-
 def postOficina():
     oficina ={}
     while True:
@@ -47,7 +43,7 @@ def postOficina():
             if not oficina.get("codigo_oficina"):
                 
                 cod_oficina = input("Ingrese el codigo de la oficina: ")
-                if(re.match(r"^[0-9]{1,10}$", cod_oficina) is not None):
+                if(re.match(r"^[A-Z-]+$", cod_oficina) is not None):
                     datas = getCodOfice(cod_oficina)
                     if datas:
                         print(tabulate(datas, headers="keys", tablefmt="github"))
@@ -82,7 +78,7 @@ def postOficina():
             if not oficina.get("codigo_postal"):
                 
                 codigo_postal = input("Ingrese el codigo postal de la oficina ")
-                if(re.match(r"^[0-9]{9}$", codigo_postal) is not None):
+                if(re.match(r"^[0-9]+$", codigo_postal) is not None):
                     oficina["codigo_postal"] = codigo_postal
                 else:
                     raise Exception ("el telefono de contacto del cliente no cumple con los parametros")
@@ -103,12 +99,11 @@ def postOficina():
         except Exception as error:
             print(error)
 
-#     headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
-#     peticion = requests.post("http://172.16.100.136:5005/oficina",  headers=headers , data=json.dumps(oficina, indent=4))
-#     res = peticion.json()
-#     tablaOficina = [oficina]
-#     print(tabulate(tablaOficina, headers="keys", tablefmt="github"))
-
+    headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
+    peticion = requests.post("http://154.38.171.54:5005/oficinas",  headers=headers , data=json.dumps(oficina, indent=4))
+    res = peticion.json()
+    tablaOficina = [oficina]
+    print(tabulate(tablaOficina, headers="keys", tablefmt="github"))
 
 def menuCrudOficina():
     while True:
@@ -137,9 +132,9 @@ def menuCrudOficina():
     """)
 
         opcion = int(input('Ingrese la opcion: '))
-        # if opcion == 1:
-        #     postOficina()
-        #     input('Oprima una tecla para continuar: ')
+        if opcion == 1:
+            postOficina()
+            input('Oprima una tecla para continuar: ')
         if opcion == 2:
             id = input("Ingrese la id de la oficina")
             print(tabulate(deletOfice(id)["body"], headers="keys", tablefmt="github"))

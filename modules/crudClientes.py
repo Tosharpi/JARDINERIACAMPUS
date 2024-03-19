@@ -11,17 +11,18 @@ def getAllDataClient():
     return data
 
 def getCodClient(id):
-    peticion = requests.get(f"http://172.16.100.136:5003/clientes/{id}")
+    peticion = requests.get(f"http://154.38.171.54:5001/cliente/{id}")
     return [peticion.json()] if peticion.ok else[]
 
 def postCliente():
+    print('Los datos no obligatorios se saltan digitando la tecla "n" mayuscula. (N)')
     cliente ={}
     while True:
         try:
             if not cliente.get("codigo_cliente"):
                 
                 codigo = input("Ingrese el codigo del cliente: ")
-                if(re.match(r"^[0-9]{1,10}$", codigo) is not None):
+                if(re.match(r'^[0-9]+$', codigo) is not None):
                     datas = getCodClient(codigo)
                     if datas:
                         print(tabulate(datas, headers="keys", tablefmt="github"))
@@ -34,21 +35,21 @@ def postCliente():
             if not cliente.get("nombre_cliente"):
                 
                 nombre = input("Ingrese el nombre del cliente: ")
-                if(re.match(r"^[A-Z][a-zA-Z\s]+(\s[A-Z][a-zA-Z\s]+)*$", nombre) is not None):
+                if(re.match(r"^[A-Z][a-záéíóúñ]+(?:\s+[A-Z][a-záéíóúñ]+)*$", nombre) is not None):
                     cliente["nombre_cliente"] = nombre
                 else:
                     raise Exception ("el nombre del cliente no cumple con los parametros")
             if not cliente.get("nombre_contacto"):
                 
                 nombre_contacto = input("Ingrese el nombre de contacto del cliente: ")
-                if(re.match(r"^[A-Z][a-zA-Z\s]+(\s[A-Z][a-zA-Z\s]+)*$", nombre_contacto) is not None):
+                if(re.match(r"^[A-Z][a-záéíóúñ]+(?:\s+[A-Z][a-záéíóúñ]+)*$", nombre_contacto) is not None):
                     cliente["nombre_contacto"] = nombre_contacto
                 else:
                     raise Exception ("el nombre de contacto del cliente no cumple con los parametros")
             if not cliente.get("apellido_contacto"):
                 
                 apellido_contacto = input("Ingrese el apellido del cliente: ")
-                if(re.match(r"^[A-Z][a-zA-Z\s]+(\s[A-Z][a-zA-Z\s]+)*$", apellido_contacto) is not None):
+                if(re.match(r"^[A-Z][a-záéíóúñ]+(?:\s+[A-Z][a-záéíóúñ]+)*$", apellido_contacto) is not None):
                     cliente["apellido_contacto"] = apellido_contacto
                 else:
                     raise Exception ("el apellido de contacto del cliente no cumple con los parametros")
@@ -75,24 +76,27 @@ def postCliente():
             if not cliente.get("ciudad"):
                 
                 ciudad = input("Ingrese la ciudad del cliente: ")
-                if(re.match(r"^[A-Z][a-zA-Z]+$", ciudad) is not None):
+                if(re.match(r"^[A-Z][a-záéíóúñ]+(?:\s+[A-Z][a-záéíóúñ]+)*$", ciudad) is not None):
                     cliente["ciudad"] = ciudad
                 else:
                     raise Exception ("la ciudad del cliente no cumple con los parametros")
             if not cliente.get("region"):
-                
                 region = input("Ingrese la region del cliente: ")
-                if(re.match(r"^[A-Z][a-zA-Z]+$", region) is not None):
+                if region == "N":
+                    cliente["region"] = region #Futuramente None
+                elif(re.match(r"^[A-Z][a-záéíóúñ]+(?:\s+[A-Z][a-záéíóúñ]+)*$", region) is not None):
                     cliente["region"] = region
                 else:
                     raise Exception ("la region del cliente no cumple con los parametros")
             if not cliente.get("pais"):
-                
                 pais = input("Ingrese el pais del cliente: ")
-                if(re.match(r"^[A-Z][a-zA-Z]+$", pais) is not None):
-                    cliente["pais"] = pais
+                if pais == "N":
+                    cliente["pais"] = pais #Futuramente None
                 else:
-                    raise Exception ("el pais del cliente no cumple con los parametros")
+                    if(re.match(r"^[A-Z][a-záéíóúñ]+(?:\s+[A-Z][a-záéíóúñ]+)*$", pais) is not None):
+                        cliente["pais"] = pais
+                    else:
+                        raise Exception ("el pais del cliente no cumple con los parametros")
             if not cliente.get("codigo_postal"):
                 
                 codigo_postal = input("Ingrese el codigo postal del cliente: ")
@@ -121,7 +125,7 @@ def postCliente():
             print(error)
 
     headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
-    peticion = requests.post("http://172.16.100.136:5003/clientes",  headers=headers , data=json.dumps(cliente, indent=4))
+    peticion = requests.post("http://172.16.103.39:5003/clientes",  headers=headers , data=json.dumps(cliente, indent=4))
     res = peticion.json()
     tablaCliente = [cliente]
     print(tabulate(tablaCliente, headers="keys", tablefmt="github"))
@@ -129,7 +133,7 @@ def postCliente():
 def deletClient(id):
     data = getCodClient(id)
     if (len(data)):
-        peticion = requests.delete(f"http://172.16.100.136:5003/clientes/{id}")
+        peticion = requests.delete(f"http://154.38.171.54:5001/cliente/{id}")
         if peticion.status_code == 204:
             data.append({"message" : "el producto fue eliminado correctamente"})
             return{
@@ -144,6 +148,46 @@ def deletClient(id):
                 },
                 "status" : 400
 }]
+
+# def updateClient(id):
+#     data = getCodClient(id)
+#     if (len(data)):
+#         print(tabulate(data, headers="keys", tablefmt="github"))
+#         print()
+#         print(data)
+        
+#         print("""
+#               Que datos desea actualizar:
+              
+#               1. codigo_ocliente
+#               2. nombre_cliente
+#               3. nombre_contacto
+#               4. apellido_contacto
+#               5. telefono
+#               6. fax
+#               7. linea_direccion1
+#               8. linea_direccion2
+#               9. ciudad
+#               10. region
+#               11. pais
+#               12. codigo_postal
+#               13. codigo_empleado_rep_ventas
+#               14. limite_credito
+              
+#               99. guardar
+#               """)
+#         opcion = int(input("Ingrese la opcion: "))
+        
+#         if opcion == 5:
+#             cambio = input("Ingrese el cambio")
+#             data['telefono'] = cambio
+#             peticion = requests.put(f"http://154.38.171.54:5001/cliente/{id}", timeout=10, data=json.dumps(data).encode("UTF-8"))
+#             res = peticion.json()
+#             return [res]
+
+            
+                
+
 
 def menuCrudClientes():
 
@@ -164,6 +208,7 @@ def menuCrudClientes():
             0. Salir                                                                  
             1. Ingresar cliente nuevo
             2. Eliminar cliente 
+            3. Actualizar datos de un cliente
           
     """)
 
@@ -176,5 +221,9 @@ def menuCrudClientes():
             id = input('Ingrese el id: ')
             print(tabulate(deletClient(id)["body"], headers="keys", tablefmt="github"))
             input('Oprima una tecla para continuar: ')
+        # if opcion == 3:
+        #     id = input('Ingrese la id del cliente a actualizar: ')
+        #     print(tabulate(updateClient(id), headers="keys", tablefmt="github"))
+        #     input('Oprima una tecla para continuar: ')
         elif opcion == 0:
             break

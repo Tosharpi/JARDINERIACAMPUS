@@ -6,7 +6,7 @@ from tabulate import tabulate
 
 def getAllDataPedidos():
     
-    peticion = requests.get("http://172.16.100.136:5007")
+    peticion = requests.get("http://154.38.171.54:5007/pedidos")
     data = peticion.json()
     return data
 
@@ -25,7 +25,7 @@ def postPedido():
             if not pedido.get("codigo_pedido"):
 
                 codigo = input("Ingrese el codigo del pedido: ")
-                if(re.match(r'^[0-9]{1,4}$', codigo) is not None):
+                if(re.match(r"^[0-9]+$", codigo) is not None):
                     codigo = int(codigo)
                     datas = getCrudCodigoPed(codigo)
                     if(datas):
@@ -52,10 +52,10 @@ def postPedido():
                 else:
                     raise Exception ("la fecha  de llegada del pedido no cumple con el estandar establecido")
 
-            elif not pedido.get("fecha_entrega"):
+            elif not pedido.get("fechaEntrega"):
                 fecha_entrega = input("Ingrese la fecha de entrega: ")
                 if (re.match(r'^(?:[0-9]{4}-[0-9]{2}-[0-9]{2}|None)$', fecha_entrega)):
-                    pedido["fecha_entrega"] = fecha_entrega
+                    pedido["fechaEntrega"] = fecha_entrega
                 else:
                     raise Exception ("La fecha de entrega no tiene el formato correcto. Debe ser YYYY-MM-DD.")
             
@@ -66,8 +66,7 @@ def postPedido():
                     pedido["estado"] = estado
                 else:
                     raise Exception ("el estado del producto no cumplen con los parametros")
-                
-                    
+                                 
             elif not pedido.get("comentario"):
                 comentario = input("Ingrese el comentario: ") is not None
                 pedido["comentario"] = comentario
@@ -76,7 +75,7 @@ def postPedido():
             
             elif not pedido.get("codigo_cliente"):
                 codigo_cliente = input("Ingrese el codigo del cliente: ")
-                if (re.match(r'^[0-9]{1,4}$', codigo_cliente) is not None):
+                if (re.match(r"^[0-9]+$", codigo_cliente) is not None):
                     codigo_cliente = int(codigo_cliente)
                     pedido["codigo_cliente"] = codigo_cliente
                     break
@@ -87,10 +86,33 @@ def postPedido():
             print(error)
         
     headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
-    peticion = requests.post("http://172.16.100.136:5007",  headers=headers , data=json.dumps(pedido, indent=4))
+    peticion = requests.post("http://154.38.171.54:5007/pedidos",  headers=headers , data=json.dumps(pedido, indent=4))
     res = peticion.json()
     tablaPedido = [pedido]
     return print(tabulate(tablaPedido, headers="keys", tablefmt="github"))
+
+def getIdProd(id):
+    peticion = requests.get(f"http://154.38.171.54:5007/pedidos/{id}")
+    return [peticion.json()] if peticion.ok else[]
+
+def deletePedido(id):
+    data = getIdProd(id)
+    if (len(data)):
+        peticion = requests.delete(f"http://154.38.171.54:5007/pedidos/{id}")
+        if peticion.status_code == 204:
+            data.append({"message" : "el producto fue eliminado correctamente"})
+            return{
+                "body": data,
+                "status" : peticion.status_code
+            }
+        else:
+            return[{
+                "body": {
+                    "message" : "producto no encontrado",
+                    "data" : id
+                },
+                "status" : 400
+}]
 
 def menuCrudPedidos():
     while True:
@@ -122,7 +144,9 @@ def menuCrudPedidos():
             postPedido()
             input("Pata continuar oprima alguna tecla...")
         if opcion == 2:
-            print('En desarrollo')
+            id = input('Ingrese el id: ')
+            print(tabulate(deletePedido(id)["body"], headers="keys", tablefmt="github"))
+            input('Oprima una tecla para continuar: ')
         elif opcion == 0:
             break
 

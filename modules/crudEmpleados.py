@@ -11,13 +11,13 @@ def getAllDataEmpl():
     return data
 
 def getCodEmpl(id):
-    peticion = requests.get(f"http://172.16.100.136:5004/empleados/{id}")
+    peticion = requests.get(f"http://154.38.171.54:5003/empleados/{id}")
     return [peticion.json()] if peticion.ok else[]
 
 def deletEmpl(id):
     data = getCodEmpl(id)
     if (len(data)):
-        peticion = requests.delete(f"http://172.16.100.136:5004/empleados/{id}")
+        peticion = requests.delete(f"http://154.38.171.54:5003/empleados/{id}")
         if peticion.status_code == 204:
             data.append({"message" : "el producto fue eliminado correctamente"})
             return{
@@ -40,7 +40,7 @@ def postEmpl():
             if not empleado.get("codigo_empleado"):
                 
                 codigo = input("Ingrese el codigo del empleado: ")
-                if(re.match(r"^[0-9]{1,10}$", codigo) is not None):
+                if(re.match(r'^[0-9]+$', codigo) is not None):
                     datas = getCodEmpl(codigo)
                     if datas:
                         print(tabulate(datas, headers="keys", tablefmt="github"))
@@ -53,21 +53,21 @@ def postEmpl():
             if not empleado.get("nombre"):
                 
                 nombre = input("Ingrese el nombre del empleado: ")
-                if(re.match(r"^[A-Z][a-zA-Z\s]+$", nombre) is not None):
+                if(re.match(r"^[A-Z][a-záéíóúñ]+(?:\s+[A-Z][a-záéíóúñ]+)*$", nombre) is not None):
                     empleado["nombre"] = nombre
                 else:
                     raise Exception ("el nombre del empleado no cumple con los parametros")
             if not empleado.get("apellido1"):
                 
                 apellido_1= input("Ingrese el apellido 1 del empleado: ")
-                if(re.match(r"^[A-Z][a-zA-Z]+$", apellido_1) is not None):
+                if(re.match(r"^[A-Z][a-záéíóúñ]+(?:\s+[A-Z][a-záéíóúñ]+)*$", apellido_1) is not None):
                     empleado["apellido1"] = apellido_1
                 else:
                     raise Exception ("el apellido del empleado no cumple con los parametros")
             if not empleado.get("apellido2"):
                 
                 apellido_2 = input("Ingrese el apellido 2 del empleado: ")
-                if(re.match(r"^[A-Z][a-zA-Z]+$", apellido_2) is not None):
+                if(re.match(r"^[A-Z][a-záéíóúñ]+(?:\s+[A-Z][a-záéíóúñ]+)*$", apellido_2) is not None):
                     empleado["apellido2"] = apellido_2
                 else:
                     raise Exception ("el apellido del empleado no cumple con los parametros")
@@ -104,7 +104,7 @@ def postEmpl():
             print(error)
 
     headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
-    peticion = requests.post("http://172.16.100.136:5004/empleados",  headers=headers , data=json.dumps(empleado, indent=4))
+    peticion = requests.post("http://154.38.171.54:5003/empleados",  headers=headers , data=json.dumps(empleado, indent=4))
     res = peticion.json()
     tablaEmpleado = [empleado]
     print(tabulate(tablaEmpleado, headers="keys", tablefmt="github"))

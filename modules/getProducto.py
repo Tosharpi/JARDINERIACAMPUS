@@ -2,17 +2,16 @@ import os
 import json
 import requests
 from tabulate import tabulate
-import modules.crudProducto as postProd
 
 def getAllDataProduct():
-    peticion = requests.get("http://172.16.100.136:5001/productos")
+    peticion = requests.get("http://154.38.171.54:5008/productos")
     data = peticion.json()
     return data
 
 def getAllStockPriceGama(gama, stock):
     condiciones = []
     for val in getAllDataProduct():
-        if(val.get("gama") == gama and val.get("cantidad_en_stock") >= stock):
+        if(val.get("gama") == gama and val.get("cantidadEnStock") >= stock):
             condiciones.append(val)
 
     def price(val):
@@ -33,7 +32,7 @@ def getAllStockPriceGama(gama, stock):
             "dimensiones":val.get("dimensiones"),
             "proveedor":val.get("proveedor"),
             "descripcion":val.get("descripcion"),
-            "stock":val.get("cantidad_en_stock")
+            "stock":val.get("cantidadEnStock")
         }
     return condiciones
 
@@ -73,7 +72,7 @@ def getProd(nombre_producto):
     return prodList
 
 def getCodProd(id):
-    peticion = requests.get(f"http://172.16.100.136:5001/productos/{id}")  
+    peticion = requests.get(f"http://154.38.171.54:5008/productos/{id}")  
     return [peticion.json()] if peticion.ok else[]
 
 def menuReportesProduct():
@@ -88,7 +87,7 @@ def menuReportesProduct():
             2. Obtener el stock de un producto segun su codigo (codigo producto)
             3. Todos los productos y sus proveedores
             4. Buscar el precio y el stock de un producto por el nombre (nombre producto)
-            5. Obtener el producto segun el codigo
+            5. Obtener el producto segun el id
         """)
         opcion = int(input("Seleccione una de las opciones: "))
         if opcion == 1:
@@ -108,8 +107,8 @@ def menuReportesProduct():
             print(tabulate(getProd(nombre_producto), headers="keys", tablefmt="github"))
             input('Para continuar oprima alguna tecla...')
         elif opcion == 5:
-            codigo_producto = input('Ingrese el codigo del producto: ')
-            print(tabulate(getCodProd(codigo_producto), headers="keys", tablefmt="github"))
+            id = input('Ingrese el id del producto: ')
+            print(tabulate(getCodProd(id), headers="keys", tablefmt="github"))
             input('Para continuar oprima alguna tecla...')
         elif opcion == 0:
             break
