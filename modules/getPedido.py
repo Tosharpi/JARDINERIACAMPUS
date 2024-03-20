@@ -4,6 +4,7 @@ import os
 from datetime import datetime
 from tabulate import tabulate
 
+#:)
 
 def getAllDataPedidos():
     

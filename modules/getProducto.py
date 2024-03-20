@@ -3,6 +3,8 @@ import json
 import requests
 from tabulate import tabulate
 
+#:)
+
 def getAllDataProduct():
     peticion = requests.get("http://154.38.171.54:5008/productos")
     data = peticion.json()

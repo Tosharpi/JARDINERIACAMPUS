@@ -5,6 +5,8 @@ import modules.crudClientes as crudCli
 import modules.crudPago as crudPag
 import modules.crudEmpleados as crudEmpl
 
+#:)
+
 def getCodClientesPago2008():
     codigosclientespago2008 = []
     for val in crudPag.getAllDataPago():

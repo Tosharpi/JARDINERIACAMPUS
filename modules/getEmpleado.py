@@ -4,6 +4,7 @@ import os
 # cevuelve un listado con el nombre, apellidos y email
 # de los empleados  segun el codigo del jefe
 
+#:)
 
 def getAllNombreApellidoEmailJefe(codigo):
     nombreApellidoEmail = []

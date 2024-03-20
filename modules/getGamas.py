@@ -1,6 +1,8 @@
 import json
 import requests
 
+#:)
+
 def getAllGama():
     peticion = requests.get("http://172.16.100.136:5002", timeout=10)
     data = peticion.json

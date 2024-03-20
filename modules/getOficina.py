@@ -4,6 +4,8 @@ import os
 #Devuelve un listado
 #oficina y la ciudad
 
+#:)
+
 def getAllCodigoCiudad():
     codigoCiudad = []
     for val in crudOfice.getAllDataOfice():
