@@ -4,8 +4,6 @@ import os
 import re
 from tabulate import tabulate
 
-# :)
-
 def getAllDataClient():
 
     peticion = requests.get("http://154.38.171.54:5001/cliente")
@@ -73,7 +71,7 @@ def postCliente():
                 linea_direccion1 = input("Ingrese la direccion 1 del cliente: ")
                 cliente["linea_direccion1"] = linea_direccion1
             if not cliente.get("linea_direccion2"):
-                linea_direccion2 = input("Ingrese la direccion 2 del cliente: ")
+                linea_direccion2 = input("Ingrese la direccion 2 del cliente: (opcional)")
                 cliente["linea_direccion2"] = linea_direccion2
             if not cliente.get("ciudad"):
                 
@@ -83,7 +81,7 @@ def postCliente():
                 else:
                     raise Exception ("la ciudad del cliente no cumple con los parametros")
             if not cliente.get("region"):
-                region = input("Ingrese la region del cliente: ")
+                region = input("Ingrese la region del cliente: (opcional)")
                 if region == "N":
                     cliente["region"] = region #Futuramente None
                 elif(re.match(r"^[A-Z][a-záéíóúñ]+(?:\s+[A-Z][a-záéíóúñ]+)*$", region) is not None):
@@ -91,7 +89,7 @@ def postCliente():
                 else:
                     raise Exception ("la region del cliente no cumple con los parametros")
             if not cliente.get("pais"):
-                pais = input("Ingrese el pais del cliente: ")
+                pais = input("Ingrese el pais del cliente: (opcional)")
                 if pais == "N":
                     cliente["pais"] = pais #Futuramente None
                 else:
@@ -130,7 +128,6 @@ def postCliente():
     for val in cliente:
         if cliente[val] == "N":  
             cliente[val] = None
-    print(cliente)
     
     headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
     peticion = requests.post("http://154.38.171.54:5001/cliente",  headers=headers , data=json.dumps(cliente, indent=4))
@@ -141,54 +138,89 @@ def postCliente():
 def deletClient(id):
     data = getIdClient(id)
     if (len(data)):
-        opcion = input("¿Desea eliminar el siguiente dato? (si/no)")
         print(tabulate(data, headers="keys", tablefmt="github"))
+        opcion = input("¿Desea eliminar el siguiente dato? (si/no)")
         if opcion == "si":
             peticion = requests.delete(f"http://154.38.171.54:5001/cliente/{id}")
-            if peticion.ok == 204:
+            if peticion.status_code == 204 or peticion.status_code == 200:
                 
                 return print("El dato fue eliminado correctamente")
             else:
                 return print ("El producto no puedo ser eliminado")
-            
+    else:
+        print("El producto no pudo ser econtrado. Revisa el id")    
+
+def getClientCod(cod):
+    peticion = requests.get(f"http://154.38.171.54:5001/cliente?codigo_cliente={cod}")
+    return peticion.json() if peticion.ok else[]
+
 def updateClient(id):
     data = getIdClient(id)
     if (len(data)):
-        print(tabulate(data, headers="keys", tablefmt="github"))
-        
-        print("""
-              Que datos desea actualizar:
-              
-              1. codigo_ocliente
-              2. nombre_cliente
-              3. nombre_contacto
-              4. apellido_contacto
-              5. telefono
-              6. fax
-              7. linea_direccion1
-              8. linea_direccion2
-              9. ciudad
-              10. region
-              11. pais
-              12. codigo_postal
-              13. codigo_empleado_rep_ventas
-              14. limite_credito
-              
-              99. guardar
-              """)
-        opcion = int(input("Ingrese la opcion: "))
-        
-        if opcion == 5:
-            cambio = input("Ingrese el cambio")
-            data = data[0]
-            data['telefono'] = cambio
-            peticion = requests.put(f"http://154.38.171.54:5001/cliente/{id}", timeout=10, data=json.dumps(data).encode("UTF-8"))
+        while True:
+            # os.system("clear")
+            print(tabulate(data, headers="keys", tablefmt="github"))
+            print("""
+                Que datos desea actualizar:
+                
+                1. codigo_cliente
+                2. nombre_cliente
+                3. nombre_contacto
+                4. apellido_contacto
+                5. telefono
+                6. fax
+                7. linea_direccion1
+                8. linea_direccion2
+                9. ciudad
+                10. region
+                11. pais
+                12. codigo_postal
+                13. codigo_empleado_rep_ventas
+                14. limite_credito
+                
+                99. guardar
+                """)
+            opcion = int(input("Ingrese la opcion: "))
+            while True:
+                if opcion == 1:
+                    cambio = input("Ingrese el codigo del cliente: ")
+                    if re.match(r"^-?\d+$", cambio):
+                        cambio = int(cambio)
+                        infoCli = getClientCod(cambio)
+                        if len(infoCli):
+                            print("el codigo del cliente ya esta en uso...")            
+                        else:
+                            dataMod = data[0]
+                            dataMod['codigo_cliente'] = cambio
+                            break
+                    else:
+                        print("El dato no cumple con los parametros")
+                # if opcion == 2:
+                #     cambio = input("Ingrese el nombre del cliente: ")
+                #     if re.match(r"^[A-Z]\w*$", cambio):
+                #         data['nombre_cliente'] = cambio
+                #         break
+                #     else:
+                #         print("El dato no cumple con los parametros")
+                # if opcion == 3:
+                #     cambio = input("Ingrese el nombre de contacto del cliente: ")
+                #     if re.match(r"^[A-Z]\w*$", cambio):
+                #         data['nombre_contacto'] = cambio
+                # if opcion == 4:
+                #     cambio = input("Ingrese el apellido de contacto del cliente: ")
+                #     if re.match(r"^[A-Z]\w*$", cambio):
+                #         data['apellido_contacto'] = cambio
+                
+                # if opcion == 5:
+                #     cambio = input("Ingrese el telefono")
+                #     data = data[0]
+                #     data['telefono'] = cambio
+
+            peticion = requests.put(f"http://154.38.171.54:5001/cliente/{id}", data=json.dumps(data[0]).encode("UTF-8"))
             res = peticion.json()
             return [res]
     else: 
         print("El id no existe")
-
-
 def menuCrudClientes():
 
     while True:
@@ -219,7 +251,7 @@ def menuCrudClientes():
             input('Oprima una tecla para continuar: ')
         if opcion ==2:
             id = input('Ingrese el id: ')
-            print(tabulate(deletClient(id), headers="keys", tablefmt="github"))
+            print(deletClient(id))
             input('Oprima una tecla para continuar: ')
         if opcion == 3:
             id = input('Ingrese la id del cliente a actualizar: ')
