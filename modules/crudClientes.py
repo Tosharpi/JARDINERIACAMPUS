@@ -134,25 +134,18 @@ def deletClient(id):
     data = getCodClient(id)
     if (len(data)):
         peticion = requests.delete(f"http://154.38.171.54:5001/cliente/{id}")
-        if peticion.status_code == 204:
-            data.append({"message" : "el producto fue eliminado correctamente"})
-            return{
-                "body": data,
-                "status" : peticion.status_code
-            }
+        peticion = peticion.json()
+        if peticion.ok == 204:
+            return print("Producto eliminado")
         else:
-            return[{
-                "body": {
-                    "message" : "producto no encontrado",
-                    "data" : id
-                },
-                "status" : 400
-}]
+            return print("Producto no encontrado")
+
+    
 
 # def updateClient(id):
 #     data = getCodClient(id)
 #     if (len(data)):
-#         print(tabulate(data, headers="keys", tablefmt="github"))
+#         print(tabulate(data[0].get("telefono"), headers="keys", tablefmt="github"))
 #         print()
 #         print(data)
         
@@ -177,13 +170,14 @@ def deletClient(id):
 #               99. guardar
 #               """)
 #         opcion = int(input("Ingrese la opcion: "))
-        
-#         if opcion == 5:
-#             cambio = input("Ingrese el cambio")
-#             data['telefono'] = cambio
-#             peticion = requests.put(f"http://154.38.171.54:5001/cliente/{id}", timeout=10, data=json.dumps(data).encode("UTF-8"))
-#             res = peticion.json()
-#             return [res]
+#         for val in data:
+            
+#             if opcion == 5:
+#                 cambio = input("Ingrese el cambio")
+#                 # data[0].get("telefono") = cambio
+#                 peticion = requests.put(f"http://154.38.171.54:5001/cliente/{id}", timeout=10, data=json.dumps(data).encode("UTF-8"))
+#                 res = peticion.json()
+#                 return [res]
 
             
                 
@@ -219,7 +213,7 @@ def menuCrudClientes():
             input('Oprima una tecla para continuar: ')
         if opcion ==2:
             id = input('Ingrese el id: ')
-            print(tabulate(deletClient(id)["body"], headers="keys", tablefmt="github"))
+            print(deletClient(id))
             input('Oprima una tecla para continuar: ')
         # if opcion == 3:
         #     id = input('Ingrese la id del cliente a actualizar: ')

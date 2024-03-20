@@ -14,7 +14,8 @@ def getAllDataProd():
 
 def getIdProd(id):
     peticion = requests.get(f"http://154.38.171.54:5008/productos/{id}")  
-    return [peticion.json()] if peticion.ok else[]
+    data = peticion.json
+    return [data.json()] if len(data) else[]
 
 def deleteProducto(id):
     data = getIdProd(id)
@@ -88,7 +89,7 @@ def postProduct():
                 producto["descripcion"] = descripcion
 # generame una expresion regular en donde valide solo numeros y que solo admita un limite de 4 numeros.
             
-            elif not producto.get("cantidad_en_stock"):
+            elif not producto.get("cantidadEnStock"):
                 cantidad_en_stock = input("Ingrese el stock: ")
                 if (re.match(r"^[0-9]+$", cantidad_en_stock) is not None):
                     cantidad_en_stock = int(cantidad_en_stock)
@@ -122,6 +123,33 @@ def postProduct():
     tablaProducto = [producto]
     return print(tabulate(tablaProducto, headers="keys", tablefmt="github"))
 
+def getProdCod(codigoProd):
+    peticion = requests.get(f"http://154.38.171.54:5008/productos?codigo_producto={codigoProd.upper()}")
+    data = peticion.json()
+    return data
+
+def uptdateProdNom(id, codigo):
+    while True:
+        if(codigo!=None):
+            print('xd')
+            producto = getCrudCodigoProd(codigo)
+            if (len(producto)):
+                print(tabulate(producto, headers="keys", tablefmt="github"))
+                opcion = int(input("Es el producto que desea actualizar: 1. si 2. no"))
+                if opcion == "si":
+                    producto = producto[0]
+                    producto["nombre"] = input("Ingrese el nuevo nombre del producto: ")
+                    headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
+                    peticion = requests.put(f"http://154.38.171.54:5008/productos/{id}", headers=headers , data=json.dumps(producto, indent=4))
+                    print("producto actualizado")
+                    break
+                else:
+                    codigo = None
+            else:
+                print(f"El producto {codigo} no existe ")
+                codigo = None
+        else:
+            codigo = ("Ingrese el codigo del producto que desea actualizar: ")
 
 def menuCrudProduct():
     while True:
@@ -145,6 +173,7 @@ def menuCrudProduct():
             0. Salir                                                                  
             1. Ingresar producto nuevo
             2. Eliminar producto 
+            3. Actualizar producto
             
           
     """)
@@ -157,6 +186,11 @@ def menuCrudProduct():
         elif opcion == 2:
             idProducto = input('Ingrese el id del producto: ')
             print (tabulate(deleteProducto(idProducto)["body"], headers="keys", tablefmt="github"))
+            input('Oprima una tecla para continuar: ')
+        elif opcion == 3:
+            id = input('Ingrese el id: ')
+            codigo = input('Ingrese el codigo del producto que desea actualizar: ')
+            print (tabulate(uptdateProdNom(id, codigo), headers="keys", tablefmt="github"))
             input('Oprima una tecla para continuar: ')
         
         elif opcion == 0:
