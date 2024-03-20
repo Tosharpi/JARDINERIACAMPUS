@@ -3,7 +3,7 @@ import requests
 import os
 import re
 from tabulate import tabulate
-
+#
 def getAllDataClient():
 
     peticion = requests.get("http://154.38.171.54:5001/cliente")
