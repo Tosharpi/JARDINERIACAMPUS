@@ -3,14 +3,16 @@ import requests
 import os
 import re
 from tabulate import tabulate
-#
+
+# :)
+
 def getAllDataClient():
 
     peticion = requests.get("http://154.38.171.54:5001/cliente")
     data = peticion.json()
     return data
 
-def getCodClient(id):
+def getIdClient(id):
     peticion = requests.get(f"http://154.38.171.54:5001/cliente/{id}")
     return [peticion.json()] if peticion.ok else[]
 
@@ -23,7 +25,7 @@ def postCliente():
                 
                 codigo = input("Ingrese el codigo del cliente: ")
                 if(re.match(r'^[0-9]+$', codigo) is not None):
-                    datas = getCodClient(codigo)
+                    datas = getIdClient(codigo)
                     if datas:
                         print(tabulate(datas, headers="keys", tablefmt="github"))
                         raise Exception("el codigo del cliente ya existe")
@@ -121,66 +123,70 @@ def postCliente():
                     break
                 else:
                     raise Exception ("el limite de credito del cliente no cumple con los parametros")
+        
         except Exception as error:
             print(error)
-
+            
+    for val in cliente:
+        if cliente[val] == "N":  
+            cliente[val] = None
+    print(cliente)
+    
     headers = {'Content-Type': 'application/json', 'charset': 'utf-8'}
-    peticion = requests.post("http://172.16.103.39:5003/clientes",  headers=headers , data=json.dumps(cliente, indent=4))
+    peticion = requests.post("http://154.38.171.54:5001/cliente",  headers=headers , data=json.dumps(cliente, indent=4))
     res = peticion.json()
     tablaCliente = [cliente]
     print(tabulate(tablaCliente, headers="keys", tablefmt="github"))
 
 def deletClient(id):
-    data = getCodClient(id)
+    data = getIdClient(id)
     if (len(data)):
-        peticion = requests.delete(f"http://154.38.171.54:5001/cliente/{id}")
-        peticion = peticion.json()
-        if peticion.ok == 204:
-            return print("Producto eliminado")
-        else:
-            return print("Producto no encontrado")
-
-    
-
-# def updateClient(id):
-#     data = getCodClient(id)
-#     if (len(data)):
-#         print(tabulate(data[0].get("telefono"), headers="keys", tablefmt="github"))
-#         print()
-#         print(data)
-        
-#         print("""
-#               Que datos desea actualizar:
-              
-#               1. codigo_ocliente
-#               2. nombre_cliente
-#               3. nombre_contacto
-#               4. apellido_contacto
-#               5. telefono
-#               6. fax
-#               7. linea_direccion1
-#               8. linea_direccion2
-#               9. ciudad
-#               10. region
-#               11. pais
-#               12. codigo_postal
-#               13. codigo_empleado_rep_ventas
-#               14. limite_credito
-              
-#               99. guardar
-#               """)
-#         opcion = int(input("Ingrese la opcion: "))
-#         for val in data:
-            
-#             if opcion == 5:
-#                 cambio = input("Ingrese el cambio")
-#                 # data[0].get("telefono") = cambio
-#                 peticion = requests.put(f"http://154.38.171.54:5001/cliente/{id}", timeout=10, data=json.dumps(data).encode("UTF-8"))
-#                 res = peticion.json()
-#                 return [res]
-
-            
+        opcion = input("¿Desea eliminar el siguiente dato? (si/no)")
+        print(tabulate(data, headers="keys", tablefmt="github"))
+        if opcion == "si":
+            peticion = requests.delete(f"http://154.38.171.54:5001/cliente/{id}")
+            if peticion.ok == 204:
                 
+                return print("El dato fue eliminado correctamente")
+            else:
+                return print ("El producto no puedo ser eliminado")
+            
+def updateClient(id):
+    data = getIdClient(id)
+    if (len(data)):
+        print(tabulate(data, headers="keys", tablefmt="github"))
+        
+        print("""
+              Que datos desea actualizar:
+              
+              1. codigo_ocliente
+              2. nombre_cliente
+              3. nombre_contacto
+              4. apellido_contacto
+              5. telefono
+              6. fax
+              7. linea_direccion1
+              8. linea_direccion2
+              9. ciudad
+              10. region
+              11. pais
+              12. codigo_postal
+              13. codigo_empleado_rep_ventas
+              14. limite_credito
+              
+              99. guardar
+              """)
+        opcion = int(input("Ingrese la opcion: "))
+        
+        if opcion == 5:
+            cambio = input("Ingrese el cambio")
+            data = data[0]
+            data['telefono'] = cambio
+            peticion = requests.put(f"http://154.38.171.54:5001/cliente/{id}", timeout=10, data=json.dumps(data).encode("UTF-8"))
+            res = peticion.json()
+            return [res]
+    else: 
+        print("El id no existe")
 
 
 def menuCrudClientes():
@@ -213,11 +219,11 @@ def menuCrudClientes():
             input('Oprima una tecla para continuar: ')
         if opcion ==2:
             id = input('Ingrese el id: ')
-            print(deletClient(id))
+            print(tabulate(deletClient(id), headers="keys", tablefmt="github"))
             input('Oprima una tecla para continuar: ')
-        # if opcion == 3:
-        #     id = input('Ingrese la id del cliente a actualizar: ')
-        #     print(tabulate(updateClient(id), headers="keys", tablefmt="github"))
-        #     input('Oprima una tecla para continuar: ')
+        if opcion == 3:
+            id = input('Ingrese la id del cliente a actualizar: ')
+            print(tabulate(updateClient(id), headers="keys", tablefmt="github"))
+            input('Oprima una tecla para continuar: ')
         elif opcion == 0:
             break

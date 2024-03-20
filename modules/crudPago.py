@@ -3,7 +3,7 @@ import requests
 import os
 from tabulate import tabulate
 import re
-
+#
 def getAllDataPago():
     peticion = requests.get("http://154.38.171.54:5006/pagos")
     data = peticion.json()
