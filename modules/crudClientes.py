@@ -182,40 +182,45 @@ def updateClient(id):
                 """)
             opcion = int(input("Ingrese la opcion: "))
             while True:
-                if opcion == 1:
-                    cambio = input("Ingrese el codigo del cliente: ")
-                    if re.match(r"^-?\d+$", cambio):
-                        cambio = int(cambio)
-                        infoCli = getClientCod(cambio)
-                        if len(infoCli):
-                            print("el codigo del cliente ya esta en uso...")            
+                try:  
+                    if opcion == 1:
+                        cambio = input("Ingrese el codigo del cliente: ")
+                        if re.match(r"^-?\d+$", cambio):
+                            cambio = int(cambio)
+                            infoCli = getClientCod(cambio)
+                            if len(infoCli):
+                                print("el codigo del cliente ya esta en uso...")            
+                            else:
+                                dataMod = data[0]
+                                dataMod['codigo_cliente'] = cambio
+                                break
                         else:
-                            dataMod = data[0]
-                            dataMod['codigo_cliente'] = cambio
-                            break
-                    else:
-                        print("El dato no cumple con los parametros")
-                # if opcion == 2:
-                #     cambio = input("Ingrese el nombre del cliente: ")
-                #     if re.match(r"^[A-Z]\w*$", cambio):
-                #         data['nombre_cliente'] = cambio
-                #         break
-                #     else:
-                #         print("El dato no cumple con los parametros")
-                # if opcion == 3:
-                #     cambio = input("Ingrese el nombre de contacto del cliente: ")
-                #     if re.match(r"^[A-Z]\w*$", cambio):
-                #         data['nombre_contacto'] = cambio
-                # if opcion == 4:
-                #     cambio = input("Ingrese el apellido de contacto del cliente: ")
-                #     if re.match(r"^[A-Z]\w*$", cambio):
-                #         data['apellido_contacto'] = cambio
-                
-                # if opcion == 5:
-                #     cambio = input("Ingrese el telefono")
-                #     data = data[0]
-                #     data['telefono'] = cambio
-
+                            raise Exception ("el codigo no cumple con los parametros: ")
+                            
+                    # if opcion == 2:
+                    #     cambio = input("Ingrese el nombre del cliente: ")
+                    #     if re.match(r"^[A-Z]\w*$", cambio):
+                    #         data['nombre_cliente'] = cambio
+                    #         break
+                    #     else:
+                    #         print("El dato no cumple con los parametros")
+                    # if opcion == 3:
+                    #     cambio = input("Ingrese el nombre de contacto del cliente: ")
+                    #     if re.match(r"^[A-Z]\w*$", cambio):
+                    #         data['nombre_contacto'] = cambio
+                    # if opcion == 4:
+                    #     cambio = input("Ingrese el apellido de contacto del cliente: ")
+                    #     if re.match(r"^[A-Z]\w*$", cambio):
+                    #         data['apellido_contacto'] = cambio
+                    
+                    # if opcion == 5:
+                    #     cambio = input("Ingrese el telefono")
+                    #     data = data[0]
+                    #     data['telefono'] = cambio
+                except Exception as error:
+                    print(error)
+                    
+                    
             peticion = requests.put(f"http://154.38.171.54:5001/cliente/{id}", data=json.dumps(data[0]).encode("UTF-8"))
             res = peticion.json()
             return [res]
