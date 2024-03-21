@@ -1,6 +1,7 @@
 import json
 import requests
 import os
+import re
 from datetime import datetime
 from tabulate import tabulate
 
@@ -149,26 +150,28 @@ def menuReportesPedidos():
             
     """)
         
-        opcion = int(input("Seleccione una de las opciones: "))
+        opcion = input("Seleccione una de las opciones: ")
+        if(re.match(r'[0-9]+$', opcion) is not None):
+            opcion = int(opcion)
 
-        if(opcion == 1):
-            codigoPed = int(input('Ingrese el codigo del pedido: '))
-            print(tabulate(getCodigoPedido(codigoPed), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif(opcion == 2):
-            print(tabulate(getEstadosPedido(), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif(opcion == 3):
-            print(tabulate(getAllPedidosEntregadosAtrasadosDeTiempo(), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif(opcion == 4):
-            print(tabulate(getAllPedAntesFechaEsperada(), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif(opcion == 5):
-            print(tabulate(getAllPedRechazadosEn2008(), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif(opcion == 6):
-            print(tabulate(getAllPedEntEnero(), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif(opcion == 0):
-            break
+            if(opcion == 1):
+                codigoPed = int(input('Ingrese el codigo del pedido: '))
+                print(tabulate(getCodigoPedido(codigoPed), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif(opcion == 2):
+                print(tabulate(getEstadosPedido(), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif(opcion == 3):
+                print(tabulate(getAllPedidosEntregadosAtrasadosDeTiempo(), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif(opcion == 4):
+                print(tabulate(getAllPedAntesFechaEsperada(), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif(opcion == 5):
+                print(tabulate(getAllPedRechazadosEn2008(), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif(opcion == 6):
+                print(tabulate(getAllPedEntEnero(), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif(opcion == 0):
+                break

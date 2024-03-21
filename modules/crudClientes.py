@@ -329,17 +329,19 @@ def menuCrudClientes():
     """)
 
 
-        opcion = int(input('Ingrese la opcion: '))
-        if opcion == 1:
-            postCliente()
-            input('Oprima una tecla para continuar: ')
-        if opcion ==2:
-            id = input('Ingrese el id: ')
-            print(deletClient(id))
-            input('Oprima una tecla para continuar: ')
-        if opcion == 3:
-            id = input('Ingrese la id del cliente a actualizar: ')
-            print(tabulate(updateClient(id), headers="keys", tablefmt="github"))
-            input('Oprima una tecla para continuar: ')
-        elif opcion == 0:
-            break
+        opcion = input("Seleccione una de las opciones: ")
+        if(re.match(r'[0-9]+$', opcion) is not None):
+            opcion = int(opcion)
+            if opcion == 1:
+                postCliente()
+                input('Oprima una tecla para continuar: ')
+            if opcion ==2:
+                id = input('Ingrese el id: ')
+                print(deletClient(id))
+                input('Oprima una tecla para continuar: ')
+            if opcion == 3:
+                id = input('Ingrese la id del cliente a actualizar: ')
+                print(tabulate(updateClient(id), headers="keys", tablefmt="github"))
+                input('Oprima una tecla para continuar: ')
+            elif opcion == 0:
+                break

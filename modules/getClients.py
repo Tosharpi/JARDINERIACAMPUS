@@ -1,4 +1,5 @@
 import os
+import re
 from tabulate import tabulate
 import modules.crudClientes as crudcli
 import modules.crudEmpleados as crudEmpl
@@ -139,40 +140,42 @@ def menuClientesReportes():
 
 """)
 
-        opcion = int(input("Seleccione una de las opciones: "))
+        opcion = input("Seleccione una de las opciones: ")
+        if(re.match(r'[0-9]+$', opcion) is not None):
+            opcion = int(opcion)
 
-        if opcion == 1:
-            print(tabulate(getAllClientName(), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif opcion == 2:
-            codigo = int(input('Ingrese el codigo del cliente: '))
-            print(tabulate(getOneClientCodigo(codigo), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif opcion == 3:
-            limiteCredit = float(input('Ingresa el limite del credito: '))
-            ciudad = input('Ingresa la ciudad: ')
-            print(tabulate(getAllClientCreditoCiudad(limiteCredit, ciudad), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif opcion == 4:
-            pais = input('Ingresa el pais: ')
-            region = input('Ingresa la region: ') or None
-            ciudad = input('Ingresa la ciudad: ') or None
-            print(tabulate(getAllClientPaisRegionCiudad(pais, region, ciudad), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif opcion == 5:
-            codigo = int(input('Ingrese el codigo del cliente: '))
-            print(tabulate(getNombreContacto(codigo),headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif opcion == 6:
-            pais = input('ingrese el pais: ')
-            print(tabulate(getClientesPais(pais),headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif opcion == 7:
-            ciudad = input('Ingrese la ciudad: ')
-            print(tabulate(getCityEmploy(ciudad),headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif opcion == 8:
-            print(tabulate(getAllClientRep(), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif opcion == 0:
-            break
+            if opcion == 1:
+                print(tabulate(getAllClientName(), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif opcion == 2:
+                codigo = int(input('Ingrese el codigo del cliente: '))
+                print(tabulate(getOneClientCodigo(codigo), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif opcion == 3:
+                limiteCredit = float(input('Ingresa el limite del credito: '))
+                ciudad = input('Ingresa la ciudad: ')
+                print(tabulate(getAllClientCreditoCiudad(limiteCredit, ciudad), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif opcion == 4:
+                pais = input('Ingresa el pais: ')
+                region = input('Ingresa la region: ') or None
+                ciudad = input('Ingresa la ciudad: ') or None
+                print(tabulate(getAllClientPaisRegionCiudad(pais, region, ciudad), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif opcion == 5:
+                codigo = int(input('Ingrese el codigo del cliente: '))
+                print(tabulate(getNombreContacto(codigo),headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif opcion == 6:
+                pais = input('ingrese el pais: ')
+                print(tabulate(getClientesPais(pais),headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif opcion == 7:
+                ciudad = input('Ingrese la ciudad: ')
+                print(tabulate(getCityEmploy(ciudad),headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif opcion == 8:
+                print(tabulate(getAllClientRep(), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif opcion == 0:
+                break

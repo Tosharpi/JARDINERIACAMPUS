@@ -1,6 +1,7 @@
 import modules.crudOficinas as crudOfice
 from tabulate import tabulate
 import os
+import re
 #Devuelve un listado
 #oficina y la ciudad
 
@@ -50,15 +51,17 @@ def menuReportesOficinas():
           2. La ciudad y el telefono de cada oficina segun el pais (pais)
 
     """)
-        opcion = int(input('Seleccione la opcion: '))
-        if (opcion == 1):
-            print(tabulate(getAllCodigoCiudad(), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif (opcion == 2):
-            pais = input('Ingrese el país: ')
-            print(tabulate(getAllCiudadTelefono(pais), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif (opcion == 0):
-            break
+        opcion = input("Seleccione una de las opciones: ")
+        if(re.match(r'[0-9]+$', opcion) is not None):
+            opcion = int(opcion)
+            if (opcion == 1):
+                print(tabulate(getAllCodigoCiudad(), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif (opcion == 2):
+                pais = input('Ingrese el país: ')
+                print(tabulate(getAllCiudadTelefono(pais), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif (opcion == 0):
+                break
 
 

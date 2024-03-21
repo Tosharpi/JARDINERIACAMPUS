@@ -1,4 +1,5 @@
 import os
+import re
 import json
 import requests
 from tabulate import tabulate
@@ -91,27 +92,29 @@ def menuReportesProduct():
             4. Buscar el precio y el stock de un producto por el nombre (nombre producto)
             5. Obtener el producto segun el id
         """)
-        opcion = int(input("Seleccione una de las opciones: "))
-        if opcion == 1:
-            gama = input("Ingrese la gama: ")
-            stock = int(input('ingrese el stock: '))
-            print(tabulate(getAllStockPriceGama(gama, stock), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif opcion == 2:
-            codProd = input('Ingrese el codigo del producto: ')
-            print(tabulate(getStockProduct(codProd), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif opcion == 3:
-            print(tabulate(getAllProv(), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif opcion == 4:
-            nombre_producto = input('Ingrese el nombre del producto: ')
-            print(tabulate(getProd(nombre_producto), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif opcion == 5:
-            id = input('Ingrese el id del producto: ')
-            print(tabulate(getCodProd(id), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif opcion == 0:
-            break
-            
+        opcion = input("Seleccione una de las opciones: ")
+        if(re.match(r'[0-9]+$', opcion) is not None):
+            opcion = int(opcion)
+            if opcion == 1:
+                gama = input("Ingrese la gama: ")
+                stock = int(input('ingrese el stock: '))
+                print(tabulate(getAllStockPriceGama(gama, stock), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif opcion == 2:
+                codProd = input('Ingrese el codigo del producto: ')
+                print(tabulate(getStockProduct(codProd), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif opcion == 3:
+                print(tabulate(getAllProv(), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif opcion == 4:
+                nombre_producto = input('Ingrese el nombre del producto: ')
+                print(tabulate(getProd(nombre_producto), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif opcion == 5:
+                id = input('Ingrese el id del producto: ')
+                print(tabulate(getCodProd(id), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif opcion == 0:
+                break
+                

@@ -1,4 +1,5 @@
 import os
+import re
 from datetime import datetime
 from tabulate import tabulate
 import modules.crudClientes as crudCli
@@ -108,22 +109,24 @@ def menuReportesPago():
             
     """)
         
-        opcion = int(input('Seleccione la opcion: '))
-        if (opcion == 1):
-            print(tabulate(getCodClientesPago2008(), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif (opcion == 2):
-            print(tabulate(getAllPagPayPal(), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif (opcion == 3):
-            print(tabulate(getAllFormasPago(), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif (opcion == 4):
-            print(tabulate(getAllClientPag(), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif (opcion == 5):
-            print(tabulate(getAllNoPay(), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif (opcion == 0):
-            break
-    
+        opcion = input("Seleccione una de las opciones: ")
+        if(re.match(r'[0-9]+$', opcion) is not None):
+            opcion = int(opcion)
+            if (opcion == 1):
+                print(tabulate(getCodClientesPago2008(), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif (opcion == 2):
+                print(tabulate(getAllPagPayPal(), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif (opcion == 3):
+                print(tabulate(getAllFormasPago(), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif (opcion == 4):
+                print(tabulate(getAllClientPag(), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif (opcion == 5):
+                print(tabulate(getAllNoPay(), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif (opcion == 0):
+                break
+        

@@ -139,14 +139,16 @@ def menuCrudPedidos():
           
     """)
 
-        opcion = int(input('Ingrese la opcion: '))
-        if opcion == 1:
-            postPedido()
-            input("Pata continuar oprima alguna tecla...")
-        if opcion == 2:
-            id = input('Ingrese el id: ')
-            print(tabulate(deletePedido(id)["body"], headers="keys", tablefmt="github"))
-            input('Oprima una tecla para continuar: ')
-        elif opcion == 0:
-            break
+        opcion = input("Seleccione una de las opciones: ")
+        if(re.match(r'[0-9]+$', opcion) is not None):
+            opcion = int(opcion)
+            if opcion == 1:
+                postPedido()
+                input("Pata continuar oprima alguna tecla...")
+            if opcion == 2:
+                id = input('Ingrese el id: ')
+                print(tabulate(deletePedido(id)["body"], headers="keys", tablefmt="github"))
+                input('Oprima una tecla para continuar: ')
+            elif opcion == 0:
+                break
 

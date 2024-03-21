@@ -179,74 +179,85 @@ if __name__ == "__main__":
                 while True:
                     os.system("clear")
                     menusClient()
-                    opcion = int(input("Seleccione una de las opciones: "))
-
-                    if opcion == 1:
-                        client.menuClientesReportes()
-                    elif opcion == 2:
-                        crudClient.menuCrudClientes()
-                    elif opcion == 0:
-                        break
+                    opcion = input("Seleccione una de las opciones: ")
+                    if(re.match(r'[0-9]+$', opcion) is not None):
+                        opcion = int(opcion)
+                        if opcion == 1:
+                            client.menuClientesReportes()
+                        elif opcion == 2:
+                            crudClient.menuCrudClientes()
+                        elif opcion == 0:
+                            break
 
             elif(opcion == 2):
                 while True:
                     os.system("clear")
                     menusOficinas()
-                    opcion = int(input("Seleccione una de las opciones: "))
-                    if opcion == 1:
-                        oficina.menuReportesOficinas()
-                    elif opcion == 2:
-                        crudOfice.menuCrudOficina()
-                    elif opcion == 0:
-                        break
+                    opcion = input("Seleccione una de las opciones: ")
+                    if(re.match(r'[0-9]+$', opcion) is not None):
+                        opcion = int(opcion)
+                        if opcion == 1:
+                            oficina.menuReportesOficinas()
+                        elif opcion == 2:
+                            crudOfice.menuCrudOficina()
+                        elif opcion == 0:
+                            break
 
             elif(opcion == 3):
                 while True:
                     os.system("clear")
                     menusEmpleados()
-                    opcion = int(input("Seleccione una de las opciones: "))
-                    if opcion == 1:
-                        empl.menuReportesEmpl()
-                    elif opcion == 2:
-                        crudEmpl.menuCrudEmpl()
-                    elif opcion == 0:
-                        break
+                    opcion = input("Seleccione una de las opciones: ")
+                    if(re.match(r'[0-9]+$', opcion) is not None):
+                        opcion = int(opcion)
+                        if opcion == 1:
+                            empl.menuReportesEmpl()
+                        elif opcion == 2:
+                            crudEmpl.menuCrudEmpl()
+                        elif opcion == 0:
+                            break
 
             elif(opcion == 4):
                 while True:
                     os.system("clear")
                     menusPedidos()
-                    opcion = int(input("Seleccione una de las opciones: "))
-                    if opcion == 1:
-                        ped.menuReportesPedidos()
-                    elif opcion == 2:
-                        crudPed.menuCrudPedidos()
-                    elif opcion == 0:
-                        break
+                    opcion = input("Seleccione una de las opciones: ")
+                    if(re.match(r'[0-9]+$', opcion) is not None):
+                        opcion = int(opcion)
+                        if opcion == 1:
+                            ped.menuReportesPedidos()
+                        elif opcion == 2:
+                            crudPed.menuCrudPedidos()
+                        elif opcion == 0:
+                            break
 
             elif(opcion == 5):
                 while True:
                     os.system("clear")
                     menusPagos()
-                    opcion = int(input("Seleccione una de las opciones: "))
-                    if opcion == 1:
-                        pag.menuReportesPago()
-                    elif opcion == 2:
-                        crudPago.menuCrudPagos()
-                    elif opcion == 0:
-                        break
+                    opcion = input("Seleccione una de las opciones: ")
+                    if(re.match(r'[0-9]+$', opcion) is not None):
+                        opcion = int(opcion)
+                        if opcion == 1:
+                            pag.menuReportesPago()
+                        elif opcion == 2:
+                            crudPago.menuCrudPagos()
+                        elif opcion == 0:
+                            break
 
             elif(opcion == 6):
                 while True:
                     os.system("clear")
                     menusProductos()
-                    opcion = int(input("Seleccione una de las opciones: "))
-                    if opcion == 1:
-                        prod.menuReportesProduct()
-                    elif opcion == 2:
-                        crudProd.menuCrudProduct()
-                    elif opcion == 0:
-                        break
+                    opcion = input("Seleccione una de las opciones: ")
+                    if(re.match(r'[0-9]+$', opcion) is not None):
+                        opcion = int(opcion)
+                        if opcion == 1:
+                            prod.menuReportesProduct()
+                        elif opcion == 2:
+                            crudProd.menuCrudProduct()
+                        elif opcion == 0:
+                            break
 
             elif(opcion == 0):
                 break

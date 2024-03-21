@@ -112,7 +112,6 @@ def postOficina():
     else:
         print()
 
-
 def updateOfice(id):
     data = getIdOfice(id)
     if (len(data)):
@@ -191,7 +190,6 @@ def updateOfice(id):
     else: 
         print("El id no existe")
 
-
 def menuCrudOficina():
     while True:
         os.system("clear")
@@ -218,18 +216,20 @@ def menuCrudOficina():
           
     """)
 
-        opcion = int(input('Ingrese la opcion: '))
-        if opcion == 1:
-            postOficina()
-            input('Oprima una tecla para continuar: ')
-        if opcion == 2:
-            id = input("Ingrese la id de la oficina")
-            print(tabulate(deletOfice(id), headers="keys", tablefmt="github"))
-            input('Oprima una tecla para continuar: ')
-        if opcion == 3:
-            id = input('Ingrese la id del cliente a actualizar: ')
-            print(tabulate(updateOfice(id), headers="keys", tablefmt="github"))
-            input('Oprima una tecla para continuar: ')
-        elif opcion == 0:
-            break
+        opcion = input("Seleccione una de las opciones: ")
+        if(re.match(r'[0-9]+$', opcion) is not None):
+            opcion = int(opcion)
+            if opcion == 1:
+                postOficina()
+                input('Oprima una tecla para continuar: ')
+            if opcion == 2:
+                id = input("Ingrese la id de la oficina")
+                print(tabulate(deletOfice(id), headers="keys", tablefmt="github"))
+                input('Oprima una tecla para continuar: ')
+            if opcion == 3:
+                id = input('Ingrese la id del cliente a actualizar: ')
+                print(tabulate(updateOfice(id), headers="keys", tablefmt="github"))
+                input('Oprima una tecla para continuar: ')
+            elif opcion == 0:
+                break
 

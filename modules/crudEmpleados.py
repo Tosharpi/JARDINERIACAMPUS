@@ -205,7 +205,6 @@ def updateEmpl(id):
     else: 
         print("El id no existe")
 
-
 def menuCrudEmpl():
     while True:
         os.system("clear")
@@ -232,17 +231,19 @@ def menuCrudEmpl():
 
     
 
-        opcion = int(input('Ingrese la opcion: '))
-        if opcion == 1:
-            postEmpl()
-            input('Oprima una tecla para continuar: ')
-        elif opcion ==2:
-            id = input('Ingrese el id: ')
-            print(tabulate(deletEmpl(id), headers="keys", tablefmt="github"))
-            input('Oprima una tecla para continuar: ')
-        elif opcion ==3:
-            id = input('Ingrese el id: ')
-            print(tabulate(updateEmpl(id), headers="keys", tablefmt="github"))
-            input('Oprima una tecla para continuar: ')
-        elif opcion == 0:
-            break
+        opcion = input("Seleccione una de las opciones: ")
+        if(re.match(r'[0-9]+$', opcion) is not None):
+            opcion = int(opcion)
+            if opcion == 1:
+                postEmpl()
+                input('Oprima una tecla para continuar: ')
+            elif opcion ==2:
+                id = input('Ingrese el id: ')
+                print(tabulate(deletEmpl(id), headers="keys", tablefmt="github"))
+                input('Oprima una tecla para continuar: ')
+            elif opcion ==3:
+                id = input('Ingrese el id: ')
+                print(tabulate(updateEmpl(id), headers="keys", tablefmt="github"))
+                input('Oprima una tecla para continuar: ')
+            elif opcion == 0:
+                break

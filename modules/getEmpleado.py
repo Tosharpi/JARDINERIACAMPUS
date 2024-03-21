@@ -1,6 +1,7 @@
 from tabulate import tabulate
 import modules.crudEmpleados as crudEmpl
 import os
+import re
 # cevuelve un listado con el nombre, apellidos y email
 # de los empleados  segun el codigo del jefe
 
@@ -73,17 +74,19 @@ def menuReportesEmpl():
 
     """)
         
-        opcion = int(input("Seleccione una de las opciones: "))
+        opcion = input("Seleccione una de las opciones: ")
+        if(re.match(r'[0-9]+$', opcion) is not None):
+            opcion = int(opcion)
 
-        if(opcion == 1):
-            codigo = int(input('Ingrese el codigo del jefe: '))
-            print(tabulate(getAllNombreApellidoEmailJefe(codigo), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif(opcion == 2):
-            print(tabulate(getAllNombrePuestoNombreApellidoEmail(), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif(opcion == 3):
-            print(tabulate(getNoRepresentanteDeVentas(), headers="keys", tablefmt="github"))
-            input('Para continuar oprima alguna tecla...')
-        elif(opcion == 0):
-            break
+            if(opcion == 1):
+                codigo = int(input('Ingrese el codigo del jefe: '))
+                print(tabulate(getAllNombreApellidoEmailJefe(codigo), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif(opcion == 2):
+                print(tabulate(getAllNombrePuestoNombreApellidoEmail(), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif(opcion == 3):
+                print(tabulate(getNoRepresentanteDeVentas(), headers="keys", tablefmt="github"))
+                input('Para continuar oprima alguna tecla...')
+            elif(opcion == 0):
+                break

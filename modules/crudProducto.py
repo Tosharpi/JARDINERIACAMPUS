@@ -178,19 +178,21 @@ def menuCrudProduct():
     """)
 
 
-        opcion = int(input('Ingrese la opcion: '))
-        if opcion == 1:
-            postProduct()
-            input('Oprima una tecla para continuar: ')
-        elif opcion == 2:
-            idProducto = input('Ingrese el id del producto: ')
-            print (tabulate(deleteProducto(idProducto)["body"], headers="keys", tablefmt="github"))
-            input('Oprima una tecla para continuar: ')
-        elif opcion == 3:
-            id = input('Ingrese el id: ')
-            codigo = input('Ingrese el codigo del producto que desea actualizar: ')
-            print (tabulate(uptdateProdNom(id, codigo), headers="keys", tablefmt="github"))
-            input('Oprima una tecla para continuar: ')
-        
-        elif opcion == 0:
-            break
+        opcion = input("Seleccione una de las opciones: ")
+        if(re.match(r'[0-9]+$', opcion) is not None):
+            opcion = int(opcion)
+            if opcion == 1:
+                postProduct()
+                input('Oprima una tecla para continuar: ')
+            elif opcion == 2:
+                idProducto = input('Ingrese el id del producto: ')
+                print (tabulate(deleteProducto(idProducto)["body"], headers="keys", tablefmt="github"))
+                input('Oprima una tecla para continuar: ')
+            elif opcion == 3:
+                id = input('Ingrese el id: ')
+                codigo = input('Ingrese el codigo del producto que desea actualizar: ')
+                print (tabulate(uptdateProdNom(id, codigo), headers="keys", tablefmt="github"))
+                input('Oprima una tecla para continuar: ')
+            
+            elif opcion == 0:
+                break
