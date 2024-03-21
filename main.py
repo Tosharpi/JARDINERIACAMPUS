@@ -163,11 +163,7 @@ def menusProductos():
 """)
 
 if __name__ == "__main__":
-    
-    # peticion = requests.get("http://154.38.171.54:5008/productos?gama=Ornamentales&cantidadEnEstock_gte=100")
-    # data = json.dumps(peticion.json(), indent=4)
-    # print(data)
-    
+
     while True:
         os.system("clear")
         
